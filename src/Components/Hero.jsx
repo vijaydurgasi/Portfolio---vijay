@@ -1,28 +1,53 @@
-const Hero = ({heroData}) => {
-   const { name, role, intro } = heroData;
+const Hero = ({ heroData }) => {
+  const { name, role, intro, image } = heroData;
 
   return (
-    <section className="px-6 py-16">
-      <h1 className="text-4xl font-bold">
-        Hi, I'm {name}
-      </h1>
+    <section className="relative overflow-hidden">
+      <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl" />
 
-      <p className="mt-4 max-w-xl text-gray-600 dark:text-gray-300">
-        {role}
-      </p>
+      <div className="relative max-w-6xl mx-auto px-4 py-2">
+        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-16">
 
-      <p className="mt-4 max-w-xl text-gray-600 dark:text-gray-300">
-        {intro}
-      </p>
+          <div className="flex-1 text-center md:text-left">
+            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
+              Hi, I’m{" "}
+              <span className="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+                {name}
+              </span>
+            </h1>
 
-      <div className="mt-6 flex gap-4">
-        <button className="px-5 py-2 rounded-md bg-blue-600 text-white">
-          View Projects
-        </button>
+            <h2 className="mt-4 text-xl md:text-2xl text-gray-600 dark:text-gray-300">
+              {role}
+            </h2>
 
-        <button className="px-5 py-2 rounded-md border">
-          Contact
-        </button>
+            <p className="mt-6 max-w-xl text-gray-600 dark:text-gray-300">
+              {intro}
+            </p>
+
+            <div className="mt-10 flex gap-4 justify-center md:justify-start">
+              <button className="px-7 py-3 rounded-md bg-blue-600 text-white shadow-lg shadow-blue-600/30 hover:-translate-y-0.5 transition">
+                View Projects
+              </button>
+
+              <button className="px-7 py-3 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                Contact Me
+              </button>
+            </div>
+          </div>
+
+          <div className="flex-shrink-0">
+            <div className="relative w-64 h-64 rounded-full p-1 bg-gradient-to-tr from-blue-500 to-cyan-400 shadow-xl">
+              <div className="w-full h-full rounded-full overflow-hidden bg-white dark:bg-gray-900">
+                <img
+                  src={image}
+                  alt={name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
   );
