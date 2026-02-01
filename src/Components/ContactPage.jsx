@@ -25,7 +25,7 @@ const ContactPage = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto px-6 py-20">
+        <div className="max-w-4xl mx-auto px-6 py-20 ">
             <h1 className="text-3xl font-bold mb-6">Contact Me</h1>
 
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -36,7 +36,7 @@ const ContactPage = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded-md border"
+                        className="w-full px-4 py-2 rounded-md border  dark:bg-gray-900 dark:border-gray-700"
                         placeholder="Your name"
                         required
                     />
@@ -49,7 +49,7 @@ const ContactPage = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded-md border"
+                        className="w-full px-4 py-2 rounded-md border  dark:bg-gray-900 dark:border-gray-700"
                         placeholder="Your email"
                         required
                     />
@@ -62,7 +62,7 @@ const ContactPage = () => {
                         value={formData.message}
                         onChange={handleChange}
                         rows="5"
-                        className="w-full px-4 py-2 rounded-md border"
+                        className="w-full px-4 py-2 rounded-md border  dark:bg-gray-900 dark:border-gray-700"
                         placeholder="Tell me about your project"
                         required
                     />
