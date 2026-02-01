@@ -3,6 +3,17 @@ import NaviBar from "./Components/NaviBar";
 import { useState, useEffect } from "react";
 import tomImg from "./assets/tom.jpg";
 import Body from "./Components/Body";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import ContactPage from "./Components/ContactPage";
+
+const AppLayout = ({ isDark, setIsDark }) => {
+  return (
+    <div className="min-h-screen transition-colors bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
+      <NaviBar isDark={isDark} setIsDark={setIsDark} />
+      <Outlet />
+    </div>
+  );
+};
 
 function App() {
 
@@ -104,7 +115,7 @@ function App() {
 
   //contact
   const contactData = {
-    heading: "Let’s Work Together 🤝",
+    heading: "Check out",
     message:
       "I’m open to freelance work, collaborations, and frontend development opportunities. Feel free to reach out if you have a project in mind.",
     email: "durgasivijay2005@gmail.com",
@@ -112,17 +123,34 @@ function App() {
     github: "https://github.com/vijaydurgasi",
   };
 
-  return (
+  const appRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: <AppLayout isDark={isDark} setIsDark={setIsDark} />,
+      children: [
+        {
+          index: true,
+          element: (
+            <Body
+              heroData={heroData}
+              skillsData={skillsData}
+              toolsData={toolsData}
+              projectsData={projectsData}
+              aboutData={aboutData}
+              servicesData={servicesData}
+              contactData={contactData}
+            />
+          ),
+        },
+        {
+          path: "contact",
+          element: <ContactPage />,
+        },
+      ],
+    },
+  ]);
 
-    <div className="min-h-screen transition-colors bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
-      <NaviBar isDark={isDark} setIsDark={setIsDark} />
-      <Body heroData={heroData} skillsData={skillsData}
-        toolsData={toolsData} projectsData={projectsData}
-        aboutData={aboutData} servicesData={servicesData}
-        contactData={contactData} />
-    </div>
-
-  );
+  return <RouterProvider router={appRouter} />;
 };
 
 export default App;

@@ -1,4 +1,12 @@
-const Services = ({ servicesData, onContactClick }) => {
+import { useNavigate } from "react-router-dom";
+
+const Services = ({ servicesData }) => {
+    const navigate = useNavigate();
+
+    const handleContactClick = () => {
+        navigate("/contact");
+    };
+
     return (
         <section className="max-w-6xl mx-auto px-6 py-16">
             <h3 className="text-3xl font-bold mb-12">What I Do 💼</h3>
@@ -7,7 +15,8 @@ const Services = ({ servicesData, onContactClick }) => {
                 {servicesData.map((service) => (
                     <div
                         key={service.id}
-                        className="p-6 rounded-xl bg-gray-100 dark:bg-gray-800 hover:shadow-lg transition-all" >
+                        className="p-6 rounded-xl bg-gray-100 dark:bg-gray-800 hover:shadow-lg transition-all"
+                    >
                         <div className="text-4xl mb-4">{service.icon}</div>
 
                         <h4 className="text-xl font-semibold mb-3">
@@ -27,15 +36,13 @@ const Services = ({ servicesData, onContactClick }) => {
             </div>
 
             <div className="mt-12 text-center">
-                <p className="text-lg mb-4">
-                    Have a project in mind?
-                </p>
+                <p className="text-lg mb-4">Have a project in mind?</p>
                 <button
-                    onClick={onContactClick}
-                    className="px-6 py-3 rounded-md bg-blue-600 text-white">
+                    onClick={handleContactClick}
+                    className="px-6 py-3 rounded-md bg-blue-600 text-white"
+                >
                     Let’s work together 🚀
                 </button>
-
             </div>
         </section>
     );
