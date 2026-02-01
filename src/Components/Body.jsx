@@ -4,8 +4,15 @@ import Projects from "./Project";
 import Services from "./Service";
 import Skill from "./Skills";
 import Contact from "./Contact";
+import { useRef } from "react";
 
 const Body = ({ heroData, skillsData, toolsData, projectsData, aboutData, servicesData, contactData, }) => {
+
+    const contactRef = useRef(null);
+
+    const handleContactClick = () => {
+        contactRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
 
     return (
         <div>
@@ -13,9 +20,8 @@ const Body = ({ heroData, skillsData, toolsData, projectsData, aboutData, servic
             <Skill skillsData={skillsData} toolsData={toolsData} />
             <Projects projectsData={projectsData} />
             <About aboutData={aboutData} />
-            <Services servicesData={servicesData} />
-            <Contact contactData={contactData} />
-
+            <Services servicesData={servicesData} onContactClick={handleContactClick} />
+            <Contact ref={contactRef} contactData={contactData} />
         </div>
     );
 };

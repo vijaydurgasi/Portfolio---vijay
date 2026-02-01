@@ -1,4 +1,4 @@
-const Services = ({ servicesData }) => {
+const Services = ({ servicesData, onContactClick }) => {
     return (
         <section className="max-w-6xl mx-auto px-6 py-16">
             <h3 className="text-3xl font-bold mb-12">What I Do 💼</h3>
@@ -30,9 +30,12 @@ const Services = ({ servicesData }) => {
                 <p className="text-lg mb-4">
                     Have a project in mind?
                 </p>
-                <button className="px-6 py-3 rounded-md bg-blue-600 text-white">
+                <button
+                    onClick={onContactClick}
+                    className="px-6 py-3 rounded-md bg-blue-600 text-white">
                     Let’s work together 🚀
                 </button>
+
             </div>
         </section>
     );
