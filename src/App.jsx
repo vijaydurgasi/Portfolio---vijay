@@ -6,66 +6,120 @@ import Body from "./Components/Body";
 
 function App() {
 
-   const [isDark, setIsDark] = useState(() => {
+  const [isDark, setIsDark] = useState(() => {
     return localStorage.getItem("theme") === "dark";
-   });
+  });
 
- useEffect(() => {
-  if (isDark) {
-    document.documentElement.classList.add("dark");
-    localStorage.setItem("theme", "dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-    localStorage.setItem("theme", "light");
-  }
-}, [isDark]);
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark]);
 
-const heroData = {
+  // Hero
+  const heroData = {
     name: "Vijay",
     role: "Frontend Developer",
     intro: "I build clean and scalable React applications.",
     image: tomImg,
   };
 
- const skillsData = [
-  "⚛️ React",
-  "🟨 JavaScript (ES6+)",
-  "🧠 Problem Solving",
-  "🧩 Component Design",
-];
+  // skills 
+  const skillsData = [
+    "⚛️ React",
+    "🟨 JavaScript (ES6+)",
+    "🧠 Problem Solving",
+    "🧩 Component Design",
+  ];
 
-const toolsData = [
-  "🎨 Tailwind CSS",
-  "🔧 Git & GitHub",
-  "🛠️ VS Code",
-  "🌐 REST APIs",
-];
+  const toolsData = [
+    "🎨 Tailwind CSS",
+    "🔧 Git & GitHub",
+    "🛠️ VS Code",
+    "🌐 REST APIs",
+  ];
 
-const projectsData = [
-  {
-    id: "swiggy",
-    title: "YouTube Clone 📺",
-    description: "Video streaming app built with React and YouTube API.",
-    tech: ["React", "API", "Tailwind"],
-    liveLink: "https://your-youtube-clone-link.com",
-  },
-  {
-    id:"youtube",
-    title: "Swiggy Clone 🍔",
-    description: "Food ordering UI with real-world flow and state handling.",
-    tech: ["React", "Redux", "API"],
-    liveLink: "https://your-swiggy-clone-link.com",
-  },
-];
+  //projects
+  const projectsData = [
+    {
+      id: "youtube",
+      title: "YouTube Clone 📺",
+      description: "Video streaming app built with React and YouTube API.",
+      tech: ["React", "API", "Tailwind"],
+      liveLink: "https://your-youtube-clone-link.com",
+    },
+    {
+      id: "swiggy",
+      title: "Swiggy Clone 🍔",
+      description: "Food ordering UI with real-world flow and state handling.",
+      tech: ["React", "Redux", "API"],
+      liveLink: "https://vijaydurgasi.github.io/Namaste-React/#/",
+    },
+  ];
 
+  //About
+  const aboutData = {
+    heading: "About Me",
+    intro:
+      "I am a frontend developer who builds modern, responsive web applications using React.",
+    points: [
+      "I focus on clean UI and scalable component architecture.",
+      "I enjoy turning complex requirements into simple user experiences.",
+      "I have built real-world projects like a YouTube clone and Swiggy clone.",
+      "I stay focused and take ownership of tasks until the solution is complete.",
+    ],
+  };
+
+  //service
+  const servicesData = [
+    {
+      id: "frontend-dev",
+      icon: "💻",
+      title: "Frontend Development",
+      description:
+        "I build modern, responsive user interfaces using React with a focus on clean code and performance.",
+      for: "Startups, small businesses, and individuals",
+    },
+    {
+      id: "react-apps",
+      icon: "⚛️",
+      title: "React Applications",
+      description:
+        "I develop scalable React applications with reusable components and predictable data flow.",
+      for: "Products that need dynamic and interactive UIs",
+    },
+    {
+      id: "ui-implementation",
+      icon: "🎨",
+      title: "UI Implementation",
+      description:
+        "I convert designs into pixel-perfect, accessible, and user-friendly web interfaces.",
+      for: "Designers and teams with ready UI designs",
+    },
+  ];
+
+  //contact
+  const contactData = {
+    heading: "Let’s Work Together 🤝",
+    message:
+      "I’m open to freelance work, collaborations, and frontend development opportunities. Feel free to reach out if you have a project in mind.",
+    email: "durgasivijay2005@gmail.com",
+    linkedin: "https://linkedin.com/in/vijaydurgasi",
+    github: "https://github.com/vijaydurgasi",
+  };
 
   return (
 
-   <div className="min-h-screen transition-colors bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
-    <NaviBar isDark={isDark} setIsDark={setIsDark}/>
-    <Body heroData={heroData} skillsData={skillsData} 
-    toolsData = {toolsData}projectsData = {projectsData}/>
-
+    <div className="min-h-screen transition-colors bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
+      <NaviBar isDark={isDark} setIsDark={setIsDark} />
+      <Body heroData={heroData} skillsData={skillsData}
+        toolsData={toolsData} projectsData={projectsData}
+        aboutData={aboutData} servicesData={servicesData}
+        contactData={contactData} />
     </div>
 
   );
