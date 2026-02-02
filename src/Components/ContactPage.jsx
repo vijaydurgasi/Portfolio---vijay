@@ -7,6 +7,10 @@ const ContactPage = () => {
         message: "",
     });
 
+    const [loading, setLoading] = useState(false);
+
+    const [status, setStatus] = useState(null);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -16,19 +20,40 @@ const ContactPage = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setStatus(null);
 
-        console.log("Form submitted:", formData);
+        try {
+            const res = await fetch("https://formspree.io/f/xaqbponl", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify(formData),
+            });
 
-        // backend will be added later
+            if (res.ok) {
+                setStatus("success");
+                alert("Message sent successfully ✅");
+                setFormData({ name: "", email: "", message: "" });
+            } else {
+                setStatus("error");
+            }
+        } catch (error) {
+            console.error(error);
+            setStatus("error");
+        }
     };
 
     return (
-        <div className="max-w-4xl mx-auto px-6 py-20 ">
+        <div className="max-w-4xl mx-auto px-6 py-20">
             <h1 className="text-3xl font-bold mb-6">Contact Me</h1>
 
             <form onSubmit={handleSubmit} className="space-y-6">
+
                 <div>
                     <label className="block mb-2 font-medium">Name</label>
                     <input
@@ -36,7 +61,7 @@ const ContactPage = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded-md border  dark:bg-gray-900 dark:border-gray-700"
+                        className="w-full px-4 py-2 rounded-md border dark:bg-gray-900 dark:border-gray-700"
                         placeholder="Your name"
                         required
                     />
@@ -49,7 +74,7 @@ const ContactPage = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded-md border  dark:bg-gray-900 dark:border-gray-700"
+                        className="w-full px-4 py-2 rounded-md border dark:bg-gray-900 dark:border-gray-700"
                         placeholder="Your email"
                         required
                     />
@@ -62,21 +87,46 @@ const ContactPage = () => {
                         value={formData.message}
                         onChange={handleChange}
                         rows="5"
-                        className="w-full px-4 py-2 rounded-md border  dark:bg-gray-900 dark:border-gray-700"
+                        className="w-full px-4 py-2 rounded-md border dark:bg-gray-900 dark:border-gray-700"
                         placeholder="Tell me about your project"
                         required
                     />
                 </div>
 
-                <button
-                    type="submit"
-                    className="px-6 py-3 rounded-md bg-blue-600 text-white"
-                >
-                    Send Message 🚀
-                </button>
+                <div className="flex gap-2">
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="px-6 py-3 rounded-md bg-blue-600 text-white disabled:opacity-60">
+                        {loading ? "Sending..." : "Send Message 🚀"}
+                    </button>
+
+                    <button
+                        type="button"
+
+                        disabled={loading}
+                        className="px-6 py-3 rounded-md bg-green-600 text-white disabled:opacity-60"
+                    >
+                        💬 Chat on WhatsApp
+                    </button>
+                </div>
+
+
+                {status === "success" && (
+                    <p className="text-green-600 font-medium">
+                        ✅ Message sent successfully!
+                    </p>
+                )}
+
+                {status === "error" && (
+                    <p className="text-red-600 font-medium">
+                        ❌ Failed to send message. Please try again.
+                    </p>
+                )}
             </form>
         </div>
     );
+
 };
 
 export default ContactPage;

@@ -21,6 +21,18 @@ function App() {
     return localStorage.getItem("theme") === "dark";
   });
 
+  const [highlightProject, setHighlightProject] = useState(false);
+
+  useEffect(() => {
+    if (!highlightProject) return;
+
+    const timer = setTimeout(() => {
+      setHighlightProject(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [highlightProject])
+
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add("dark");
@@ -139,6 +151,8 @@ function App() {
               aboutData={aboutData}
               servicesData={servicesData}
               contactData={contactData}
+              highlightProject={highlightProject}
+              setHighlightProject={setHighlightProject}
             />
           ),
         },

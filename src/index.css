@@ -1,3 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Light mode blink (dark gray background) */
+@keyframes sectionBlinkLight {
+  0%, 100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(55, 65, 81, 0.25); /* gray-700 */
+  }
+}
+
+/* Dark mode blink (lighter gray background) */
+@keyframes sectionBlinkDark {
+  0%, 100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(156, 163, 175, 0.25); /* gray-400 */
+  }
+}
+
+/* Default = light mode */
+.blink-section {
+  animation: sectionBlinkLight 0.5s ease-in-out infinite;
+}
+
+/* Dark mode override */
+.dark .blink-section {
+  animation: sectionBlinkDark 0.5s ease-in-out infinite;
+}
+

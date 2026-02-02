@@ -1,5 +1,20 @@
-const Hero = ({ heroData }) => {
+const Hero = ({ heroData, setHighlightProject, projectRef }) => {
+
   const { name, role, intro, image } = heroData;
+
+  const handleProjectClick = () => {
+    setHighlightProject(true);
+
+    const yOffset = -100; // adjust this value if needed
+    const y =
+      projectRef.current.getBoundingClientRect().top +
+      window.pageYOffset +
+      yOffset;
+
+    window.scrollTo({ top: y, behavior: "smooth" });
+  };
+
+
 
   return (
     <section className="relative overflow-hidden">
@@ -25,7 +40,7 @@ const Hero = ({ heroData }) => {
             </p>
 
             <div className="mt-10 flex gap-4 justify-center md:justify-start">
-              <button className="px-7 py-3 rounded-md bg-blue-600 text-white shadow-lg shadow-blue-600/30 hover:-translate-y-0.5 transition">
+              <button onClick={handleProjectClick} className="px-7 py-3 rounded-md bg-blue-600 text-white shadow-lg shadow-blue-600/30 hover:-translate-y-0.5 transition">
                 View Projects
               </button>
 
