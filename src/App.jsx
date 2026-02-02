@@ -8,7 +8,7 @@ import ContactPage from "./Components/ContactPage";
 
 const AppLayout = ({ isDark, setIsDark }) => {
   return (
-    <div className="min-h-screen transition-colors bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
+    <div className="min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
       <NaviBar isDark={isDark} setIsDark={setIsDark} />
       <Outlet />
     </div>

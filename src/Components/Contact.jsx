@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 
+
 const Contact = forwardRef(({ contactData }, ref) => {
     const { heading, message, email, linkedin, github } = contactData;
 

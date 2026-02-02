@@ -1,4 +1,5 @@
 import { useState } from "react";
+import whatsapp from "../../src/assets/whatsapp.jpg";
 
 const ContactPage = () => {
     const [formData, setFormData] = useState({
@@ -19,6 +20,24 @@ const ContactPage = () => {
             [name]: value,
         }));
     };
+
+    const handleWhatsAppClick = () => {
+        // setLoading(true);
+        // setStatus(null);
+
+        const phoneNumber = "9182919974";
+        const message = "Hi Vijay! I came across your portfolio and I’m interested in working with you.";
+
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+            message
+        )}`;
+
+        window.open(whatsappUrl, "_blank");
+
+        // setLoading(false);
+        // setStatus("success");
+    };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -97,20 +116,26 @@ const ContactPage = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="px-6 py-3 rounded-md bg-blue-600 text-white disabled:opacity-60">
+                        className="px-6 py-3 rounded-md bg-blue-600 text-white  hover:bg-blue-700 disabled:opacity-60">
                         {loading ? "Sending..." : "Send Message 🚀"}
                     </button>
 
                     <button
                         type="button"
-
                         disabled={loading}
-                        className="px-6 py-3 rounded-md bg-green-600 text-white disabled:opacity-60"
+                        onClick={handleWhatsAppClick}
+                        className="flex items-center gap-3 px-6 py-3 rounded-md bg-green-600 text-white hover:bg-green-700 transition-colors disabled:opacity-60"
                     >
-                        💬 Chat on WhatsApp
-                    </button>
-                </div>
 
+                        <img
+                            src={whatsapp}
+                            alt="WhatsApp"
+                            className="w-6 h-6 object-contain rounded-xl" />
+
+                        <span className="font-medium">{loading ? "Opening WhatsApp..." : "Chat on WhatsApp"}</span>
+                    </button>
+
+                </div>
 
                 {status === "success" && (
                     <p className="text-green-600 font-medium">
@@ -130,3 +155,5 @@ const ContactPage = () => {
 };
 
 export default ContactPage;
+
+

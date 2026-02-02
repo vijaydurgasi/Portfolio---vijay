@@ -5,7 +5,7 @@ const Hero = ({ heroData, setHighlightProject, projectRef }) => {
   const handleProjectClick = () => {
     setHighlightProject(true);
 
-    const yOffset = -100; // adjust this value if needed
+    const yOffset = -100;
     const y =
       projectRef.current.getBoundingClientRect().top +
       window.pageYOffset +
@@ -44,9 +44,14 @@ const Hero = ({ heroData, setHighlightProject, projectRef }) => {
                 View Projects
               </button>
 
-              <button className="px-7 py-3 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                Contact Me
-              </button>
+              <a
+                href="/Vijay_Durgasi_Resume.pdf"
+                download
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-all hover:scale-[1.03]">
+                <span>Download Resume</span>
+                <span>⬇️</span>
+              </a>
+
             </div>
           </div>
 
