@@ -8,17 +8,21 @@ import ContactPage from "./Components/ContactPage";
 
 const AppLayout = ({ isDark, setIsDark }) => {
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 dark:text-gray-100 transition-colors">
       <NaviBar isDark={isDark} setIsDark={setIsDark} />
-      <Outlet />
+      <main className="pt-16">
+        <Outlet />
+      </main>
     </div>
   );
 };
 
+
 function App() {
 
   const [isDark, setIsDark] = useState(() => {
-    return localStorage.getItem("theme") === "dark";
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme ? savedTheme === "dark" : true;
   });
 
   const [highlightProject, setHighlightProject] = useState(false);
@@ -72,14 +76,19 @@ function App() {
       id: "youtube",
       title: "YouTube Clone 📺",
       description: "Video streaming app built with React and YouTube API.",
-      tech: ["React", "API", "Tailwind"],
+      tech: ["Implemented Redux for state management",
+        "Optimized API calls, reduced load time by 30%",
+        "Built responsive UI using Tailwind",
+        "View Code on GitHub"],
       liveLink: "https://your-youtube-clone-link.com",
     },
     {
       id: "swiggy",
       title: "Swiggy Clone 🍔",
       description: "Food ordering UI with real-world flow and state handling.",
-      tech: ["React", "Redux", "API"],
+      tech: ["Global state management for video data",
+        "Improved performance through efficient API usage",
+        "Created responsive layouts using Tailwind CSS"],
       liveLink: "https://vijaydurgasi.github.io/Namaste-React/#/",
     },
   ];

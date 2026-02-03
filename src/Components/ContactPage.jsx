@@ -22,9 +22,6 @@ const ContactPage = () => {
     };
 
     const handleWhatsAppClick = () => {
-        // setLoading(true);
-        // setStatus(null);
-
         const phoneNumber = "9182919974";
         const message = "Hi Vijay! I came across your portfolio and I’m interested in working with you.";
 
@@ -33,9 +30,6 @@ const ContactPage = () => {
         )}`;
 
         window.open(whatsappUrl, "_blank");
-
-        // setLoading(false);
-        // setStatus("success");
     };
 
 
@@ -124,8 +118,7 @@ const ContactPage = () => {
                         type="button"
                         disabled={loading}
                         onClick={handleWhatsAppClick}
-                        className="flex items-center gap-3 px-6 py-3 rounded-md bg-green-600 text-white hover:bg-green-700 transition-colors disabled:opacity-60"
-                    >
+                        className="flex items-center gap-3 px-6 py-3 rounded-md bg-green-600 text-white hover:bg-green-700 transition-colors disabled:opacity-60">
 
                         <img
                             src={whatsapp}
@@ -155,5 +148,3 @@ const ContactPage = () => {
 };
 
 export default ContactPage;
-
-
