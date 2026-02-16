@@ -62,8 +62,9 @@ const ContactPage = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto px-6 py-20">
-            <h1 className="text-3xl font-bold mb-6">Contact Me</h1>
+        <div className="max-w-4xl mx-auto px-4 md:px-6 py-16 md:py-20">
+
+            <h1 className="text-2xl md:text-3xl font-bold mb-6">Contact Me</h1>
 
             <form onSubmit={handleSubmit} className="space-y-6">
 
@@ -106,7 +107,8 @@ const ContactPage = () => {
                     />
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-4">
+
                     <button
                         type="submit"
                         disabled={loading}

@@ -1,11 +1,11 @@
 const Skills = ({ skillsData, toolsData }) => {
   return (
     <section className="max-w-6xl mx-auto px-6 pt-6 pb-16">
-      
-      <h3 className="text-3xl font-bold mb-10">Skills & Tools 🚀</h3>
+
+      <h3 className="text-2xl md:text-3xl font-bold mb-10">Skills & Tools 🚀</h3>
       <div className="mb-10">
         <h4 className="text-xl font-semibold mb-4">Skills</h4>
-        <ul className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {skillsData.map((skill, index) => (
             <li
               key={index}

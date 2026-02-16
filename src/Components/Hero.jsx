@@ -14,8 +14,6 @@ const Hero = ({ heroData, setHighlightProject, projectRef }) => {
     window.scrollTo({ top: y, behavior: "smooth" });
   };
 
-
-
   return (
     <section className="relative overflow-hidden">
       <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl" />

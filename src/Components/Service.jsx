@@ -9,9 +9,9 @@ const Services = ({ servicesData }) => {
 
     return (
         <section className="max-w-6xl mx-auto px-6 py-16">
-            <h3 className="text-3xl font-bold mb-12">What I Do 💼</h3>
+            <h3 className="text-2xl md:text-3xl font-bold mb-12">What I Do 💼</h3>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8">
                 {servicesData.map((service) => (
                     <div
                         key={service.id}
@@ -19,7 +19,7 @@ const Services = ({ servicesData }) => {
                     >
                         <div className="text-4xl mb-4">{service.icon}</div>
 
-                        <h4 className="text-xl font-semibold mb-3">
+                        <h4 className="text-3xl md:text-4xl font-semibold mb-3">
                             {service.title}
                         </h4>
 
