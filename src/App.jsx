@@ -79,8 +79,9 @@ function App() {
       tech: ["Implemented Redux for state management",
         "Optimized API calls, reduced load time by 30%",
         "Built responsive UI using Tailwind",
-        "View Code on GitHub"],
-      liveLink: "https://your-youtube-clone-link.com",
+        "View Code on GitHub"
+      ],
+      liveLink: "namaste-youtube-psi.vercel.app",
     },
     {
       id: "swiggy",
@@ -88,8 +89,21 @@ function App() {
       description: "Food ordering UI with real-world flow and state handling.",
       tech: ["Global state management for video data",
         "Improved performance through efficient API usage",
-        "Created responsive layouts using Tailwind CSS"],
-      liveLink: "https://vijaydurgasi.github.io/Namaste-React/#/",
+        "Created responsive layouts using Tailwind CSS"
+      ],
+      liveLink: "namaste-react-wheat-xi.vercel.app",
+    },
+    {
+      id: "netflix",
+      title: "Netflix GPT 🔴",
+      description: "Netflix-inspired app with AI-based movie suggestions and secure authentication.",
+      tech: [
+        "Firebase authentication with protected routes",
+        "Redux Toolkit for global state management",
+        "TMDB API integration for dynamic movie data",
+        "Responsive UI built with React and Tailwind CSS"
+      ],
+      liveLink: "netflixgpt2026.vercel.app",
     },
   ];
 

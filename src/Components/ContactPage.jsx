@@ -8,6 +8,8 @@ const ContactPage = () => {
         message: "",
     });
 
+    const [whatsAppLoading, setWhatsAppLoading] = useState(false);
+
     const [loading, setLoading] = useState(false);
 
     const [status, setStatus] = useState(null);
@@ -21,15 +23,30 @@ const ContactPage = () => {
         }));
     };
 
+    // const handleWhatsAppClick = () => {
+    //     const phoneNumber = "9182919974";
+    //     const message = "Hi Vijay! I came across your portfolio and I’m interested in working with you.";
+
+    //     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+    //         message
+    //     )}`;
+
+    //     window.open(whatsappUrl, "_blank");
+    // };
+
     const handleWhatsAppClick = () => {
+        setWhatsAppLoading(true);
+
         const phoneNumber = "9182919974";
         const message = "Hi Vijay! I came across your portfolio and I’m interested in working with you.";
 
-        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-            message
-        )}`;
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
         window.open(whatsappUrl, "_blank");
+
+        setTimeout(() => {
+            setWhatsAppLoading(false);
+        }, 1500);
     };
 
 
@@ -118,7 +135,7 @@ const ContactPage = () => {
 
                     <button
                         type="button"
-                        disabled={loading}
+                        disabled={whatsAppLoading}
                         onClick={handleWhatsAppClick}
                         className="flex items-center gap-3 px-6 py-3 rounded-md bg-green-600 text-white hover:bg-green-700 transition-colors disabled:opacity-60">
 
@@ -127,7 +144,10 @@ const ContactPage = () => {
                             alt="WhatsApp"
                             className="w-6 h-6 object-contain rounded-xl" />
 
-                        <span className="font-medium">{loading ? "Opening WhatsApp..." : "Chat on WhatsApp"}</span>
+                        <span className="font-medium">
+                            {whatsAppLoading ? "Opening WhatsApp..." : "Chat on WhatsApp"}
+                        </span>
+
                     </button>
 
                 </div>
