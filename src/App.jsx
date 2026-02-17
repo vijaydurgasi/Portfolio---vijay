@@ -81,7 +81,7 @@ function App() {
         "Built responsive UI using Tailwind",
         "View Code on GitHub"
       ],
-      liveLink: "namaste-youtube-psi.vercel.app",
+      liveLink: "https://namaste-youtube-psi.vercel.app",
     },
     {
       id: "swiggy",
@@ -91,7 +91,7 @@ function App() {
         "Improved performance through efficient API usage",
         "Created responsive layouts using Tailwind CSS"
       ],
-      liveLink: "namaste-react-wheat-xi.vercel.app",
+      liveLink: "https://namaste-react-wheat-xi.vercel.app",
     },
     {
       id: "netflix",
@@ -103,7 +103,7 @@ function App() {
         "TMDB API integration for dynamic movie data",
         "Responsive UI built with React and Tailwind CSS"
       ],
-      liveLink: "netflixgpt2026.vercel.app",
+      liveLink: "https://netflixgpt2026.vercel.app",
     },
   ];
 
