@@ -5,6 +5,7 @@ import tomImg from "./assets/tom.jpg";
 import Body from "./Components/Body";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import ContactPage from "./Components/ContactPage";
+import AIAssistant from "./Components/ai/AIAssistant";
 
 const AppLayout = ({ isDark, setIsDark }) => {
   return (
@@ -12,6 +13,7 @@ const AppLayout = ({ isDark, setIsDark }) => {
       <NaviBar isDark={isDark} setIsDark={setIsDark} />
       <main className="pt-16">
         <Outlet />
+        <AIAssistant />
       </main>
     </div>
   );
