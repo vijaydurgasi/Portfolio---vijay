@@ -111,7 +111,13 @@ Rules:
 
         if (response.status === 429) {
             return res.json({
-                reply: "⚠️ AI quota reached. Please try again later."
+                reply: "⚠️ Rate limit reached. Please wait 1 minute and try again."
+            });
+        }
+
+        if (response.status === 403) {
+            return res.json({
+                reply: "⚠️ Invalid or expired API key."
             });
         }
 

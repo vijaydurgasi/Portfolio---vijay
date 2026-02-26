@@ -133,12 +133,13 @@ His projects demonstrate authentication systems, state management, responsive UI
                 { role: "assistant", content: data.reply }
             ]);
         } catch (error) {
-            console.log(error)
+            console.log("Frontend error:", error);
+
             setChatMessages((prev) => [
                 ...prev,
                 {
                     role: "assistant",
-                    content: "⚠️ Chat quota reached. Please try again later."
+                    content: "⚠️ Something went wrong. Please try again."
                 }
             ]);
         }
