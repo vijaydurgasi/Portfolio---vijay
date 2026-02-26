@@ -5,22 +5,78 @@ import ReactMarkdown from "react-markdown";
 const AIAssistant = () => {
 
     /* =========================
-       RECOMMENDED QUESTIONS
+       SUGGESTED QUESTIONS
     ========================== */
-    const recommendedQuestions = [
-        {
-            question: "What projects have you built?",
-            answer: `
+    const suggestedQuestions = [
+        "What projects have you built?",
+        "What skills do you have?",
+        "Are your projects responsive?",
+        "Do you build full stack applications?",
+        "Is he capable of handling production projects?",
+        "How can I contact you?"
+    ];
+
+    /* =========================
+       STATE
+    ========================== */
+    const [isOpen, setIsOpen] = useState(false);
+    const [chatMessages, setChatMessages] = useState([]);
+    const [inputValue, setInputValue] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [usedQuestions, setUsedQuestions] = useState([]);
+
+    const messagesEndRef = useRef(null);
+
+    /* =========================
+       GREETING CHECK
+    ========================== */
+    const isGreeting = (text) => {
+        const greetings = ["hi", "hello", "hey", "good morning", "good evening"];
+        return greetings.some(g => text === g || text.startsWith(g));
+    };
+
+    /* =========================
+       INTENT MATCHING
+    ========================== */
+    const generateReply = (message) => {
+        const text = message.toLowerCase().trim();
+
+        // Greeting
+        if (isGreeting(text)) {
+            return `
+Hello 👋  
+I'm Vijay’s AI Assistant.
+
+You can ask me about:
+- Projects
+- Skills
+- Experience
+- Services
+- Contact
+`;
+        }
+
+        // Projects
+        if (
+            text === "what projects have you built?" ||
+            text.includes("projects")
+        ) {
+            return `
 ### Projects
-- 1.**"YouTube Clone"** (React, Redux, Tailwind)
-- 2.**"Swiggy Clone"** (API, Cart, Redux)
-- 3.**"Netflix GPT"** (Firebase Auth, GPT Search)
-`
-        },
-        {
-            question: "What skills do you have?",
-            answer: `
-### **"Skills"**
+- **YouTube Clone** – React, Redux, Tailwind CSS  
+- **Swiggy Clone** – API Integration, Cart, Redux  
+- **Netflix GPT** – Firebase Auth, GPT-based Search  
+`;
+        }
+
+        // Skills
+        if (
+            text === "what skills do you have?" ||
+            text.includes("skills") ||
+            text.includes("tech stack")
+        ) {
+            return `
+### Skills & Tech Stack
 - React
 - Redux
 - Tailwind CSS
@@ -28,38 +84,80 @@ const AIAssistant = () => {
 - Node.js
 - Firebase Authentication
 - API Integration
-`
-        },
-        {
-            question: "How can I contact you?",
-            answer: `
-In the portfolio scroll down and click the **"Let's Work Together"** button.
+- Responsive Web Design
+`;
+        }
+
+        // Responsive
+        if (
+            text === "are your projects responsive?" ||
+            text.includes("responsive")
+        ) {
+            return `
+Yes ✅ All projects are fully responsive and optimized for mobile-first design.
+`;
+        }
+
+        // Full stack
+        if (
+            text === "do you build full stack applications?" ||
+            text.includes("full stack") ||
+            text.includes("backend")
+        ) {
+            return `
+Yes. Vijay builds full-stack applications using Node.js, authentication systems, and REST APIs.
+`;
+        }
+
+        // Capability
+        if (
+            text === "is he capable of handling production projects?" ||
+            text.includes("capable") ||
+            text.includes("experience") ||
+            text.includes("production")
+        ) {
+            return `
+### Capability
+Vijay has built real-world applications using modern technologies like React, Redux, Firebase, and API integrations.
+
+He has implemented:
+- Authentication systems
+- Advanced state management
+- Fully responsive UI
+- Scalable frontend architecture
+
+### Projects
+- YouTube Clone  
+- Swiggy Clone  
+- Netflix GPT  
+`;
+        }
+
+        // Contact
+        if (
+            text === "how can i contact you?" ||
+            text.includes("contact") ||
+            text.includes("hire")
+        ) {
+            return `
+You can scroll down and click the **"Let's Work Together"** section.
 
 You can send an email or WhatsApp message directly.
-`
-        },
-        {
-            question: "Is he capable of handling real projects?",
-            answer: `
-Yes. Vijay has built real-world applications using modern technologies like React, Redux, Firebase, and API integrations.
-
-His projects demonstrate authentication systems, state management, responsive UI, and scalable frontend architecture.
-`
+`;
         }
-    ];
 
-    /* =========================
-       STATE
-    ========================== */
-    const [isOpen, setIsOpen] = useState(false);
-    const [chatmessages, setChatMessages] = useState([]);
-    const [inputValue, setInputValue] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
-    const [usedQuestions, setUsedQuestions] = useState([]);
+        // Default fallback
+        return `
+I'm here to help 😊
 
-    const messagesEndRef = useRef(null);
-
-    const API_URL = "/api/chat";
+You can ask me about:
+- Projects
+- Skills
+- Experience
+- Services
+- Contact
+`;
+    };
 
     /* =========================
        TOGGLE BOT
@@ -75,7 +173,7 @@ His projects demonstrate authentication systems, state management, responsive UI
                 {
                     role: "assistant",
                     content:
-                        "Hi 👋 I'm Vijay’s AI assistant. Ask me about projects, skills or services!"
+                        "Hi 👋 I'm Vijay’s AI assistant. Ask me anything about my work!"
                 }
             ]);
         }
@@ -84,13 +182,13 @@ His projects demonstrate authentication systems, state management, responsive UI
     /* =========================
        SEND MESSAGE
     ========================== */
-    const handleSend = async (customText = null) => {
+    const handleSend = (customText = null) => {
         if (isLoading) return;
 
         const messageToSend = customText || inputValue;
         if (!messageToSend.trim()) return;
 
-        setChatMessages((prev) => [
+        setChatMessages(prev => [
             ...prev,
             { role: "user", content: messageToSend }
         ]);
@@ -98,81 +196,36 @@ His projects demonstrate authentication systems, state management, responsive UI
         setInputValue("");
         setIsLoading(true);
 
-        /* ========= Exact Match Check ========= */
-        const matched = recommendedQuestions.find(
-            (q) => q.question === messageToSend
-        );
+        setTimeout(() => {
+            const reply = generateReply(messageToSend);
 
-        if (matched) {
-            setChatMessages((prev) => [
+            setChatMessages(prev => [
                 ...prev,
-                { role: "assistant", content: matched.answer }
+                { role: "assistant", content: reply }
             ]);
 
-            setUsedQuestions((prev) => [...prev, matched.question]);
+            if (suggestedQuestions.includes(messageToSend)) {
+                setUsedQuestions(prev => [...prev, messageToSend]);
+            }
+
             setIsLoading(false);
-            return;
-        }
-
-        /* ========= Gemini Call ========= */
-        try {
-            const response = await fetch(API_URL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ message: messageToSend })
-            });
-
-            if (!response.ok) throw new Error("API error");
-
-            const data = await response.json();
-
-            setChatMessages((prev) => [
-                ...prev,
-                { role: "assistant", content: data.reply }
-            ]);
-        } catch (error) {
-            console.log("Frontend error:", error);
-
-            setChatMessages((prev) => [
-                ...prev,
-                {
-                    role: "assistant",
-                    content: "⚠️ Something went wrong. Please try again."
-                }
-            ]);
-        }
-
-        setIsLoading(false);
+        }, 500);
     };
 
     /* =========================
        AUTO SCROLL
     ========================== */
     useEffect(() => {
-        if (messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-        }
-    }, [chatmessages, isLoading]);
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [chatMessages, isLoading]);
 
-    /* =========================
-       OPTIONAL SMART DISPLAY LOGIC
-       Show suggestions only if last message is assistant
-    ========================== */
-    const lastMessage = chatmessages[chatmessages.length - 1];
-    const remainingQuestions = recommendedQuestions.filter(
-        (q) => !usedQuestions.includes(q.question)
-    );
-    const shouldShowSuggestions =
-        lastMessage?.role === "assistant" && remainingQuestions.length > 0;
+    const lastMessage = chatMessages[chatMessages.length - 1];
 
     /* =========================
        UI
     ========================== */
     return (
         <>
-            {/* Floating Bot Button */}
             <button
                 onClick={handleToggle}
                 className="fixed bottom-6 right-6 w-14 h-14 rounded-full shadow-lg z-50"
@@ -184,21 +237,18 @@ His projects demonstrate authentication systems, state management, responsive UI
                 />
             </button>
 
-            {/* Chat Panel */}
             {isOpen && (
                 <div className="fixed bottom-24 right-6 w-[350px] h-[500px] rounded-2xl shadow-2xl flex flex-col overflow-hidden border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 z-50">
 
-                    {/* Header */}
                     <div className="p-4 border-b border-gray-200 dark:border-gray-700">
                         <h2 className="text-sm font-semibold text-gray-800 dark:text-white">
                             Vijay's AI Assistant
                         </h2>
                     </div>
 
-                    {/* Messages */}
                     <div className="flex-1 overflow-y-auto p-4 text-sm text-gray-600 dark:text-gray-300">
 
-                        {chatmessages.map((msg, index) => (
+                        {chatMessages.map((msg, index) => (
                             <div
                                 key={index}
                                 className={`mb-3 max-w-[80%] ${msg.role === "user"
@@ -206,31 +256,31 @@ His projects demonstrate authentication systems, state management, responsive UI
                                     : "mr-auto text-left"
                                     }`}
                             >
-                                <div className="inline-block px-4 py-2 rounded-2xl bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white prose prose-sm dark:prose-invert max-w-none">
+                                <div className="inline-block px-4 py-2 rounded-2xl bg-gray-100 dark:bg-gray-800 prose prose-sm dark:prose-invert max-w-none">
                                     <ReactMarkdown>{msg.content}</ReactMarkdown>
                                 </div>
                             </div>
                         ))}
 
-                        {/* Suggested Questions (Optional Logic Applied) */}
-                        {shouldShowSuggestions && (
+                        {lastMessage?.role === "assistant" && (
                             <div className="mt-3 flex flex-wrap gap-2">
-                                {remainingQuestions.map((q, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={() => handleSend(q.question)}
-                                        className="text-xs bg-gray-200 dark:bg-gray-800 px-3 py-1 rounded-full hover:bg-gray-300 dark:hover:bg-gray-700 transition"
-                                    >
-                                        {q.question}
-                                    </button>
-                                ))}
+                                {suggestedQuestions
+                                    .filter(q => !usedQuestions.includes(q))
+                                    .map((q, index) => (
+                                        <button
+                                            key={index}
+                                            onClick={() => handleSend(q)}
+                                            className="text-xs bg-gray-200 dark:bg-gray-800 px-3 py-1 rounded-full hover:bg-gray-300 dark:hover:bg-gray-700 transition"
+                                        >
+                                            {q}
+                                        </button>
+                                    ))}
                             </div>
                         )}
 
-                        {/* Loading */}
                         {isLoading && (
                             <div className="mr-auto mb-3">
-                                <div className="inline-block px-4 py-2 rounded-2xl bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 animate-pulse">
+                                <div className="inline-block px-4 py-2 rounded-2xl bg-gray-100 dark:bg-gray-800 animate-pulse">
                                     AI is typing...
                                 </div>
                             </div>
@@ -239,16 +289,13 @@ His projects demonstrate authentication systems, state management, responsive UI
                         <div ref={messagesEndRef} />
                     </div>
 
-                    {/* Input */}
                     <div className="p-3 border-t border-gray-200 dark:border-gray-700">
                         <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 rounded-xl px-3 py-2">
                             <input
                                 type="text"
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter") handleSend();
-                                }}
+                                onKeyDown={(e) => e.key === "Enter" && handleSend()}
                                 placeholder="Ask something..."
                                 className="flex-1 bg-transparent outline-none text-sm dark:text-white"
                             />
@@ -261,6 +308,7 @@ His projects demonstrate authentication systems, state management, responsive UI
                             </button>
                         </div>
                     </div>
+
                 </div>
             )}
         </>
