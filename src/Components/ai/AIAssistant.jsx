@@ -2,23 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import bot from "../../assets/bot.png";
 import ReactMarkdown from "react-markdown";
 
+import { isGreeting, greetingReply, isFarewell, farewellReply } from "./greetings";
+import { suggestedQuestions, generateReply } from "./intents";
+
 const AIAssistant = () => {
 
-    /* =========================
-       SUGGESTED QUESTIONS
-    ========================== */
-    const suggestedQuestions = [
-        "What projects have you built?",
-        "What skills do you have?",
-        "Are your projects responsive?",
-        "Do you build full stack applications?",
-        "Is he capable of handling production projects?",
-        "How can I contact you?"
-    ];
-
-    /* =========================
-       STATE
-    ========================== */
     const [isOpen, setIsOpen] = useState(false);
     const [chatMessages, setChatMessages] = useState([]);
     const [inputValue, setInputValue] = useState("");
@@ -27,141 +15,6 @@ const AIAssistant = () => {
 
     const messagesEndRef = useRef(null);
 
-    /* =========================
-       GREETING CHECK
-    ========================== */
-    const isGreeting = (text) => {
-        const greetings = ["hi", "hello", "hey", "good morning", "good evening"];
-        return greetings.some(g => text === g || text.startsWith(g));
-    };
-
-    /* =========================
-       INTENT MATCHING
-    ========================== */
-    const generateReply = (message) => {
-        const text = message.toLowerCase().trim();
-
-        // Greeting
-        if (isGreeting(text)) {
-            return `
-Hello 👋  
-I'm Vijay’s AI Assistant.
-
-You can ask me about:
-- Projects
-- Skills
-- Experience
-- Services
-- Contact
-`;
-        }
-
-        // Projects
-        if (
-            text === "what projects have you built?" ||
-            text.includes("projects")
-        ) {
-            return `
-### Projects
-- **YouTube Clone** – React, Redux, Tailwind CSS  
-- **Swiggy Clone** – API Integration, Cart, Redux  
-- **Netflix GPT** – Firebase Auth, GPT-based Search  
-`;
-        }
-
-        // Skills
-        if (
-            text === "what skills do you have?" ||
-            text.includes("skills") ||
-            text.includes("tech stack")
-        ) {
-            return `
-### Skills & Tech Stack
-- React
-- Redux
-- Tailwind CSS
-- JavaScript
-- Node.js
-- Firebase Authentication
-- API Integration
-- Responsive Web Design
-`;
-        }
-
-        // Responsive
-        if (
-            text === "are your projects responsive?" ||
-            text.includes("responsive")
-        ) {
-            return `
-Yes ✅ All projects are fully responsive and optimized for mobile-first design.
-`;
-        }
-
-        // Full stack
-        if (
-            text === "do you build full stack applications?" ||
-            text.includes("full stack") ||
-            text.includes("backend")
-        ) {
-            return `
-Yes. Vijay builds full-stack applications using Node.js, authentication systems, and REST APIs.
-`;
-        }
-
-        // Capability
-        if (
-            text === "is he capable of handling production projects?" ||
-            text.includes("capable") ||
-            text.includes("experience") ||
-            text.includes("production")
-        ) {
-            return `
-### Capability
-Vijay has built real-world applications using modern technologies like React, Redux, Firebase, and API integrations.
-
-He has implemented:
-- Authentication systems
-- Advanced state management
-- Fully responsive UI
-- Scalable frontend architecture
-
-### Projects
-- YouTube Clone  
-- Swiggy Clone  
-- Netflix GPT  
-`;
-        }
-
-        // Contact
-        if (
-            text === "how can i contact you?" ||
-            text.includes("contact") ||
-            text.includes("hire")
-        ) {
-            return `
-You can scroll down and click the **"Let's Work Together"** section.
-
-You can send an email or WhatsApp message directly.
-`;
-        }
-
-        // Default fallback
-        return `
-I'm here to help 😊
-
-You can ask me about:
-- Projects
-- Skills
-- Experience
-- Services
-- Contact
-`;
-    };
-
-    /* =========================
-       TOGGLE BOT
-    ========================== */
     const handleToggle = () => {
         if (isOpen) {
             setIsOpen(false);
@@ -179,9 +32,6 @@ You can ask me about:
         }
     };
 
-    /* =========================
-       SEND MESSAGE
-    ========================== */
     const handleSend = (customText = null) => {
         if (isLoading) return;
 
@@ -197,7 +47,17 @@ You can ask me about:
         setIsLoading(true);
 
         setTimeout(() => {
-            const reply = generateReply(messageToSend);
+            let reply;
+
+            if (isGreeting(messageToSend)) {
+                reply = greetingReply;
+            }
+            else if (isFarewell(messageToSend)) {
+                reply = farewellReply;
+            }
+            else {
+                reply = generateReply(messageToSend);
+            }
 
             setChatMessages(prev => [
                 ...prev,
@@ -209,21 +69,15 @@ You can ask me about:
             }
 
             setIsLoading(false);
-        }, 500);
+        }, 400);
     };
 
-    /* =========================
-       AUTO SCROLL
-    ========================== */
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [chatMessages, isLoading]);
 
     const lastMessage = chatMessages[chatMessages.length - 1];
 
-    /* =========================
-       UI
-    ========================== */
     return (
         <>
             <button
