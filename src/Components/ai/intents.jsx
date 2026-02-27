@@ -3,9 +3,8 @@
 export const suggestedQuestions = [
     "What projects have you built?",
     "What skills do you have?",
-    "Are your projects responsive?",
     "Do you build full stack applications?",
-    "Is he capable of handling production projects?",
+    "Is he capable of handling production applications?",
     "How can I contact you?"
 ];
 
@@ -22,6 +21,7 @@ export const generateReply = (message) => {
 - **YouTube Clone** – React, Redux, Tailwind CSS  
 - **Swiggy Clone** – API Integration, Cart, Redux  
 - **Netflix GPT** – Firebase Auth, GPT-based Search  
+- And all projects are fully responsive and optimized for mobile screens and for Desktop screen.
 `;
     }
 
@@ -46,7 +46,7 @@ export const generateReply = (message) => {
 
     // Responsive
     if (
-        text === "are your projects responsive?" ||
+        text === "responsive?" ||
         text.includes("responsive")
     ) {
         return `
@@ -67,7 +67,7 @@ Yes. Vijay builds full-stack applications using Node.js, authentication systems,
 
     // Capability
     if (
-        text === "is he capable of handling production projects?" ||
+        text === "is he capable of handling production level applications?" ||
         text.includes("capable") ||
         text.includes("experience") ||
         text.includes("production")
