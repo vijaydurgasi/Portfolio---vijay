@@ -59,7 +59,7 @@ const Hero = ({ heroData, setHighlightProject, projectRef }) => {
                 <img
                   src={image}
                   alt={name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-center aspect-square"
                 />
               </div>
             </div>
