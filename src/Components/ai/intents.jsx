@@ -38,7 +38,9 @@ export const generateReply = (message) => {
 - Tailwind CSS
 - JavaScript
 - Node.js
-- Firebase Authentication
+- Express
+- Nosql
+- Authentication
 - API Integration
 - Responsive Web Design
 `;

@@ -52,24 +52,37 @@ function App() {
   // Hero
   const heroData = {
     name: "Vijay",
-    role: "Frontend Developer",
-    intro: "I build clean and scalable React applications.",
+    role: "Full Stack Developer",
+    intro: "I build scalable full stack web applications using the MERN stack.",
     image: tomImg,
   };
 
-  // skills 
+  // frontend skills 
   const skillsData = [
-    "⚛️ React",
+    "⚛️ React.js",
     "🟨 JavaScript (ES6+)",
+    "🌐 HTML5 & CSS3",
+    "🧩 Component Architecture",
+    "🔄 State Management (Redux Toolkit)",
     "🧠 Problem Solving",
-    "🧩 Component Design",
   ];
 
+  // backend skills
+  const backendData = [
+    "🟢 Node.js",
+    "🚂 Express.js",
+    "🍃 MongoDB",
+    "🔗 REST API Development",
+    "🔐 Authentication (JWT / Firebase)",
+  ];
+
+  //tools
   const toolsData = [
     "🎨 Tailwind CSS",
     "🔧 Git & GitHub",
     "🛠️ VS Code",
-    "🌐 REST APIs",
+    "📦 Postman",
+    "☁️ Vercel / Netlify",
   ];
 
   //projects
@@ -113,40 +126,49 @@ function App() {
   const aboutData = {
     heading: "About Me",
     intro:
-      "I am a frontend developer who builds modern, responsive web applications using React.",
+      "I am a Full Stack Developer specializing in the MERN stack, building scalable and high-performance web applications from frontend to backend.",
     points: [
-      "I focus on clean UI and scalable component architecture.",
-      "I enjoy turning complex requirements into simple user experiences.",
-      "I have built real-world projects like a YouTube clone and Swiggy clone.",
-      "I stay focused and take ownership of tasks until the solution is complete.",
+      "I design and develop responsive user interfaces using React and Tailwind CSS.",
+      "I build secure and scalable backend systems using Node.js, Express, and MongoDB.",
+      "I have developed real-world projects like YouTube Clone, Swiggy Clone, and Netflix GPT.",
+      "I focus on clean code, performance optimization, and maintainable architecture.",
+      "I take ownership of problems and deliver complete end-to-end solutions.",
     ],
   };
 
   //service
   const servicesData = [
     {
+      id: "fullstack-dev",
+      icon: "🚀",
+      title: "Full Stack Development",
+      description:
+        "I build complete web applications using the MERN stack, handling both frontend and backend with clean architecture and scalable solutions.",
+      for: "Startups, businesses, and personal projects",
+    },
+    {
       id: "frontend-dev",
       icon: "💻",
       title: "Frontend Development",
       description:
-        "I build modern, responsive user interfaces using React with a focus on clean code and performance.",
-      for: "Startups, small businesses, and individuals",
+        "I create modern, responsive, and high-performance user interfaces using React and Tailwind CSS with a focus on user experience.",
+      for: "Products that need clean and engaging UI",
     },
     {
-      id: "react-apps",
-      icon: "⚛️",
-      title: "React Applications",
+      id: "backend-dev",
+      icon: "🛠️",
+      title: "Backend Development",
       description:
-        "I develop scalable React applications with reusable components and predictable data flow.",
-      for: "Products that need dynamic and interactive UIs",
+        "I develop secure and efficient backend systems, REST APIs, and authentication using Node.js, Express, and MongoDB.",
+      for: "Applications requiring scalable backend systems",
     },
     {
-      id: "ui-implementation",
-      icon: "🎨",
-      title: "UI Implementation",
+      id: "api-integration",
+      icon: "🔗",
+      title: "API Integration",
       description:
-        "I convert designs into pixel-perfect, accessible, and user-friendly web interfaces.",
-      for: "Designers and teams with ready UI designs",
+        "I integrate third-party APIs and build custom APIs to connect frontend with backend systems seamlessly.",
+      for: "Apps needing external services or dynamic data",
     },
   ];
 
@@ -154,7 +176,7 @@ function App() {
   const contactData = {
     heading: "Check out",
     message:
-      "I’m open to freelance work, collaborations, and frontend development opportunities. Feel free to reach out if you have a project in mind.",
+      "I’m open to freelance work, collaborations, and full stack development opportunities. If you have an idea or project in mind, let’s build something impactful together.",
     email: "durgasivijay2005@gmail.com",
     linkedin: "https://linkedin.com/in/vijaydurgasi",
     github: "https://github.com/vijaydurgasi",
@@ -171,6 +193,7 @@ function App() {
             <Body
               heroData={heroData}
               skillsData={skillsData}
+              backendData={backendData}
               toolsData={toolsData}
               projectsData={projectsData}
               aboutData={aboutData}

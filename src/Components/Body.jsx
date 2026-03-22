@@ -16,6 +16,7 @@ const Body = ({
     servicesData,
     highlightProject,
     setHighlightProject,
+    backendData
 }) => {
 
     const projectRef = useRef(null);
@@ -24,7 +25,7 @@ const Body = ({
         <div>
             <Hero heroData={heroData} setHighlightProject={setHighlightProject} projectRef={projectRef} />
 
-            <Skills skillsData={skillsData} toolsData={toolsData} />
+            <Skills skillsData={skillsData} backendData={backendData} toolsData={toolsData} />
             <Projects projectsData={projectsData} highlightProject={highlightProject} projectRef={projectRef} />
             <About aboutData={aboutData} />
             <Services servicesData={servicesData} />

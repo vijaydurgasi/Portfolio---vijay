@@ -1,5 +1,6 @@
 import ThemeToggle from "./ThemeToggle";
 import { Link } from "react-router-dom";
+import TechBadge from "./TechBadge";
 
 const NaviBar = ({ isDark, setIsDark }) => {
   return (
@@ -14,6 +15,10 @@ const NaviBar = ({ isDark, setIsDark }) => {
           aria-label="Go to Home">
           🏠
         </Link>
+
+        <div>
+          <TechBadge />
+        </div>
 
         <div
           className="border border-gray-300 hover:bg-gray-200 active:scale-95 px-4 py-2 rounded-md transition-all cursor-pointer font-semibold">
