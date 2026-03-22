@@ -24,17 +24,12 @@ const TechBadge = () => {
     }, []);
 
     return (
-        <div className="hidden md:flex items-center justify-center h-10 overflow-hidden">
+        <div className="flex items-center justify-center h-10 overflow-hidden">
             <span
-                className={`
-          text-sm font-semibold tracking-wide
-          transition-all duration-500 ease-in-out
-          ${visible
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 -translate-y-2"}
-          
-          text-blue-600 dark:text-white
-        `}
+                className={` font-semibold tracking-wide transition-all duration-500 ease-in-out
+                             text-xs sm:text-sm md:text-sm  
+                             ${visible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}
+                             text-blue-600 dark:text-white whitespace-nowrap`}
             >
                 {words[index]}
             </span>
