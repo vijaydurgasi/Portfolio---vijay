@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const words = [
     "MERN Stack Developer",
     "MongoDB • Express • React • Node",
-    "Building Scalable Web Apps"
+    "RAG systems"
 ];
 
 const TechBadge = () => {

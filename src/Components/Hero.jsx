@@ -43,7 +43,7 @@ const Hero = ({ heroData, setHighlightProject, projectRef }) => {
               </button>
 
               <a
-                href="/Vijay_Durgasi_Resume.pdf"
+                href="/vijay_Durgasi_Resume.pdf"
                 download
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-all hover:scale-[1.03]">
                 <span>Download Resume</span>
