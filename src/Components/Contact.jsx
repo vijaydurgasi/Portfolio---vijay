@@ -6,16 +6,16 @@ const Contact = forwardRef(({ contactData }, ref) => {
 
     return (
         <section ref={ref} className="max-w-6xl mx-auto px-6 py-20 text-center">
-            <h3 className="text-2xl md:text-3xl font-bold mb-6">{heading}</h3>
+            <h3 className="text-2xl md:text-3xl font-semibold tracking-tight mb-6">{heading}</h3>
 
-            <p className="max-w-2xl mx-auto mb-10 text-gray-600 dark:text-gray-300">
+            <p className="max-w-2xl mx-auto mb-10 text-mut">
                 {message}
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <a
                     href={`mailto:${email}`}
-                    className="px-6 py-3 rounded-md bg-blue-600 text-white">
+                    className="px-6 py-3 rounded-full btn-accent text-sm font-medium">
                     Email Me 📧
                 </a>
 
@@ -23,7 +23,7 @@ const Contact = forwardRef(({ contactData }, ref) => {
                     href={linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-6 py-3 rounded-md border">
+                    className="px-6 py-3 rounded-full btn-ghost text-sm font-medium">
                     LinkedIn
                 </a>
 
@@ -31,7 +31,7 @@ const Contact = forwardRef(({ contactData }, ref) => {
                     href={github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-6 py-3 rounded-md border">
+                    className="px-6 py-3 rounded-full btn-ghost text-sm font-medium">
                     GitHub
                 </a>
             </div>

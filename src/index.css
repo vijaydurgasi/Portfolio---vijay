@@ -2,48 +2,96 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Light mode blink (dark gray background) */
-@keyframes sectionBlinkLight {
-  0%, 100% {
-    background-color: transparent;
-  }
-  50% {
-    background-color: rgba(55, 65, 81, 0.25); /* gray-700 */
-  }
+/* ===== MONO theme tokens ===== */
+:root {
+  --bg: #F5F3EC;
+  --surface: #FFFFFF;
+  --surface-2: #EDEAE0;
+  --text: #16151A;
+  --text-muted: #6B6A62;
+  --text-dim: #9A968C;
+  --line: rgba(0, 0, 0, 0.10);
+  --accent: #C7E86B;
+  --accent-ink: #5E7A1E;
+  --btn-text: #0C0C0E;
 }
 
-/* Dark mode blink (lighter gray background) */
-@keyframes sectionBlinkDark {
-  0%, 100% {
-    background-color: transparent;
-  }
-  50% {
-    background-color: rgba(156, 163, 175, 0.25); /* gray-400 */
-  }
+.dark {
+  --bg: #0C0C0E;
+  --surface: #141417;
+  --surface-2: #1A1A1E;
+  --text: #ECEAE3;
+  --text-muted: #84848C;
+  --text-dim: #56565E;
+  --line: rgba(255, 255, 255, 0.08);
+  --accent: #C7E86B;
+  --accent-ink: #C7E86B;
+  --btn-text: #0C0C0E;
 }
 
-/* Default = light mode */
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===== helpers ===== */
+.app-bg { background: var(--bg); color: var(--text); }
+.surface { background: var(--surface); border: 1px solid var(--line); }
+.surface-2 { background: var(--surface-2); }
+.hairline { border-color: var(--line) !important; }
+.text-mut { color: var(--text-muted); }
+.text-dim { color: var(--text-dim); }
+.text-accent { color: var(--accent-ink); }
+.bg-accent { background: var(--accent); color: var(--btn-text); }
+.accent-dot { background: var(--accent); }
+
+.btn-accent {
+  background: var(--accent);
+  color: var(--btn-text);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.btn-accent:hover { transform: translateY(-2px); filter: brightness(1.05); }
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--text);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.btn-ghost:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+.chip {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--text);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.chip:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+.card-hover { transition: border-color 0.2s ease, transform 0.2s ease; }
+.card-hover:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+.row-hover { transition: background-color 0.2s ease, padding 0.2s ease; }
+.row-hover:hover { background: var(--surface); }
+
+/* ===== motion ===== */
+@keyframes monoBlink {
+  0%, 100% { background-color: transparent; }
+  50% { background-color: rgba(199, 232, 107, 0.12); }
+}
 .blink-section {
-  animation: sectionBlinkLight 0.5s ease-in-out infinite;
-}
-
-/* Dark mode override */
-.dark .blink-section {
-  animation: sectionBlinkDark 0.5s ease-in-out infinite;
+  animation: monoBlink 0.6s ease-in-out infinite;
+  border-radius: 16px;
 }
 
 @keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
 }
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
+.animate-float { animation: float 3s ease-in-out infinite; }

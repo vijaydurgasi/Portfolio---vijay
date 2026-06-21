@@ -81,7 +81,7 @@ const ContactPage = () => {
     return (
         <div className="max-w-4xl mx-auto px-4 md:px-6 py-16 md:py-20">
 
-            <h1 className="text-2xl md:text-3xl font-bold mb-6">Contact Me</h1>
+            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mb-6">Contact Me</h1>
 
             <form onSubmit={handleSubmit} className="space-y-6">
 
@@ -92,7 +92,7 @@ const ContactPage = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded-md border dark:bg-gray-900 dark:border-gray-700"
+                        className="w-full px-4 py-2 rounded-xl surface outline-none focus:[border-color:var(--accent)]"
                         placeholder="Your name"
                         required
                     />
@@ -105,7 +105,7 @@ const ContactPage = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded-md border dark:bg-gray-900 dark:border-gray-700"
+                        className="w-full px-4 py-2 rounded-xl surface outline-none focus:[border-color:var(--accent)]"
                         placeholder="Your email"
                         required
                     />
@@ -118,7 +118,7 @@ const ContactPage = () => {
                         value={formData.message}
                         onChange={handleChange}
                         rows="5"
-                        className="w-full px-4 py-2 rounded-md border dark:bg-gray-900 dark:border-gray-700"
+                        className="w-full px-4 py-2 rounded-xl surface outline-none focus:[border-color:var(--accent)]"
                         placeholder="Tell me about your project"
                         required
                     />
@@ -129,7 +129,7 @@ const ContactPage = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="px-6 py-3 rounded-md bg-blue-600 text-white  hover:bg-blue-700 disabled:opacity-60">
+                        className="px-6 py-3 rounded-full btn-accent text-sm font-medium disabled:opacity-60">
                         {loading ? "Sending..." : "Send Message 🚀"}
                     </button>
 

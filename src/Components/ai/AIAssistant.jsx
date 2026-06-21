@@ -92,15 +92,16 @@ const AIAssistant = () => {
             </button>
 
             {isOpen && (
-                <div className="fixed bottom-24 right-6 w-[350px] h-[500px] rounded-2xl shadow-2xl flex flex-col overflow-hidden border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 z-50">
+                <div className="fixed bottom-24 right-6 w-[350px] h-[500px] rounded-2xl shadow-2xl flex flex-col overflow-hidden surface z-50">
 
-                    <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-                        <h2 className="text-sm font-semibold text-gray-800 dark:text-white">
+                    <div className="p-4 border-b hairline">
+                        <h2 className="text-sm font-semibold flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full accent-dot inline-block" />
                             Vijay's AI Assistant
                         </h2>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto p-4 text-sm text-gray-600 dark:text-gray-300">
+                    <div className="flex-1 overflow-y-auto p-4 text-sm text-mut">
 
                         {chatMessages.map((msg, index) => (
                             <div
@@ -110,7 +111,7 @@ const AIAssistant = () => {
                                     : "mr-auto text-left"
                                     }`}
                             >
-                                <div className="inline-block px-4 py-2 rounded-2xl bg-gray-100 dark:bg-gray-800 prose prose-sm dark:prose-invert max-w-none">
+                                <div className="inline-block px-4 py-2 rounded-2xl surface prose prose-sm dark:prose-invert max-w-none">
                                     <ReactMarkdown>{msg.content}</ReactMarkdown>
                                 </div>
                             </div>
@@ -124,7 +125,7 @@ const AIAssistant = () => {
                                         <button
                                             key={index}
                                             onClick={() => handleSend(q)}
-                                            className="text-xs bg-gray-200 dark:bg-gray-800 px-3 py-1 rounded-full hover:bg-gray-300 dark:hover:bg-gray-700 transition"
+                                            className="text-xs chip px-3 py-1 rounded-full"
                                         >
                                             {q}
                                         </button>
@@ -134,7 +135,7 @@ const AIAssistant = () => {
 
                         {isLoading && (
                             <div className="mr-auto mb-3">
-                                <div className="inline-block px-4 py-2 rounded-2xl bg-gray-100 dark:bg-gray-800 animate-pulse">
+                                <div className="inline-block px-4 py-2 rounded-2xl surface animate-pulse">
                                     AI is typing...
                                 </div>
                             </div>
@@ -143,20 +144,20 @@ const AIAssistant = () => {
                         <div ref={messagesEndRef} />
                     </div>
 
-                    <div className="p-3 border-t border-gray-200 dark:border-gray-700">
-                        <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 rounded-xl px-3 py-2">
+                    <div className="p-3 border-t hairline">
+                        <div className="flex items-center gap-2 surface-2 rounded-xl px-3 py-2">
                             <input
                                 type="text"
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
                                 onKeyDown={(e) => e.key === "Enter" && handleSend()}
                                 placeholder="Ask something..."
-                                className="flex-1 bg-transparent outline-none text-sm dark:text-white"
+                                className="flex-1 bg-transparent outline-none text-sm"
                             />
                             <button
                                 onClick={() => handleSend()}
                                 disabled={!inputValue.trim()}
-                                className="text-sm font-semibold text-gray-800 dark:text-white"
+                                className="text-sm font-semibold text-accent"
                             >
                                 Send
                             </button>

@@ -1,31 +1,41 @@
 const ProjectCard = ({ projectData }) => {
-  const { title, description, tech = [], liveLink } = projectData;
+  const { title, description, tech = [], liveLink, status, year } = projectData;
 
   return (
     <a href={liveLink} target="_blank" rel="noopener noreferrer" className="block">
-      <div className="p-6 rounded-xl bg-gray-100 dark:bg-gray-800 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer">
-        <h4 className="text-xl font-semibold mb-2">{title}</h4>
+      <div className="h-full p-6 rounded-2xl surface card-hover cursor-pointer">
+        <div className="flex items-start justify-between gap-3 mb-2">
+          <h4 className="text-xl font-semibold tracking-tight">{title}</h4>
+          {year && (
+            <span className="shrink-0 text-xs text-dim mt-1">
+              {year}
+            </span>
+          )}
+        </div>
 
-        <p className="text-gray-600 dark:text-gray-300 mb-4">
+        {status && (
+          <span className="inline-flex items-center gap-1.5 mb-3 text-xs font-medium tracking-wide text-accent">
+            <span className="w-1.5 h-1.5 rounded-full accent-dot inline-block" />
+            {status}
+          </span>
+        )}
+
+        <p className="text-mut mb-4 text-sm leading-relaxed">
           {description}
         </p>
 
         {tech.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-2">
             {tech.map((item) => (
               <span
                 key={item}
-                className="text-sm px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-700"
+                className="text-xs px-3 py-1 rounded-full surface-2 [border:1px_solid_var(--line)] text-mut"
               >
                 {item}
               </span>
             ))}
           </div>
         )}
-
-        <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
-          👉 Click to view project
-        </p>
       </div>
     </a>
   );

@@ -18,9 +18,13 @@ export const generateReply = (message) => {
     ) {
         return `
 ### Projects
-- **YouTube Clone** – React, Redux, Tailwind CSS  
-- **Swiggy Clone** – API Integration, Cart, Redux  
-- **Netflix GPT** – Firebase Auth, GPT-based Search  
+- **Be Your Own Coach (BYOC)** – Live paid client platform · React, Node.js, Razorpay, AWS S3
+- **AI Desktop Assistant** – Agentic system automation · Python, LLM Agents, Tool-Calling, Memory
+- **Resume RAG** – AI resume Q&A · React, OpenRouter, Retrieval-Augmented Generation
+- **AI Learning Hub** – 27-module interactive platform · React, RAG, OpenRouter
+- **YouTube Clone** – React, Redux, Tailwind CSS
+- **Swiggy Clone** – API Integration, Cart, Redux
+- **Netflix GPT** – Firebase Auth, GPT-based Search
 - And all projects are fully responsive and optimized for mobile screens and for Desktop screen.
 `;
     }
@@ -33,16 +37,11 @@ export const generateReply = (message) => {
     ) {
         return `
 ### Skills & Tech Stack
-- React
-- Redux
-- Tailwind CSS
-- JavaScript
-- Node.js
-- Express
-- Nosql
-- Authentication
-- API Integration
-- Responsive Web Design
+**Languages:** Python, JavaScript (ES6+), SQL
+**Frontend:** React, Redux, Tailwind CSS, Responsive UI/UX
+**Backend:** Node.js, Express, Django, MongoDB, REST APIs, Razorpay Payments
+**AI / LLM:** RAG, Multimodal RAG, AI Agents, NLP, Prompt Engineering, OpenRouter API, Vector Search
+**Cloud & Tools:** AWS S3, Git & GitHub, Vercel, VS Code
 `;
     }
 
@@ -63,7 +62,7 @@ Yes ✅ All projects are fully responsive and optimized for mobile-first design.
         text.includes("backend")
     ) {
         return `
-Yes. Vijay builds full-stack applications using Node.js, authentication systems, and REST APIs.
+Yes. Vijay builds full-stack applications using React, Node.js, Django, and MongoDB, with authentication, secure payment integration (Razorpay), and REST APIs — plus AI/LLM features like RAG pipelines and autonomous agents.
 `;
     }
 
@@ -76,18 +75,23 @@ Yes. Vijay builds full-stack applications using Node.js, authentication systems,
     ) {
         return `
 ### Capability
-Vijay has built real-world applications using modern technologies like React, Redux, Firebase, and API integrations.
+Yes. Vijay has shipped a production platform for a live paying client — **Be Your Own Coach** — with Razorpay pay-to-unlock access and premium video streaming from AWS S3 after verified payment.
 
 He has implemented:
-- Authentication systems
+- A live, payment-integrated production application
+- RAG pipelines and autonomous AI agents
+- Authentication and access control
 - Advanced state management
-- Fully responsive UI
-- Scalable frontend architecture
+- Fully responsive, scalable architecture
 
 ### Projects
-- YouTube Clone  
-- Swiggy Clone  
-- Netflix GPT  
+- Be Your Own Coach (live client)
+- AI Desktop Assistant
+- Resume RAG
+- AI Learning Hub
+- YouTube Clone
+- Swiggy Clone
+- Netflix GPT
 `;
     }
 
