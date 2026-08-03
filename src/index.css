@@ -95,3 +95,42 @@ body {
   100% { transform: translateY(0px); }
 }
 .animate-float { animation: float 3s ease-in-out infinite; }
+
+/* ===== RAG streaming cursor ===== */
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.streaming-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 14px;
+  background: var(--accent);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: cursorBlink 0.8s step-end infinite;
+}
+
+/* ===== RAG status dots ===== */
+.rag-dots {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+}
+.rag-dots span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: ragPulse 1.2s ease-in-out infinite;
+}
+.rag-dots span:nth-child(2) { animation-delay: 0.2s; }
+.rag-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes ragPulse {
+  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1.1); }
+}
+
+/* user message bubble */
+.text-btn { color: var(--btn-text); }

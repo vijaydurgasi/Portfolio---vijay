@@ -9,10 +9,12 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "generate-embeddings": "node scripts/generateEmbeddings.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@huggingface/transformers": "^4.2.0",
     "@tailwindcss/typography": "^0.5.19",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",

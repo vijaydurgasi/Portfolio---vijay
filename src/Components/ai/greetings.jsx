@@ -39,10 +39,7 @@ export const isFarewell = (text) => {
 };
 
 export const greetingReply = `
-Hello 👋  
-I'm Vijay’s AI Assistant.
-
-You can ask me about:
+I'm fine, you can ask me anything about:
 - Projects
 - Skills
 - Experience
