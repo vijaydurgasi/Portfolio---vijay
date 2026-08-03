@@ -120,11 +120,11 @@ function App() {
         "Agentic desktop AI that controls the local machine through natural language — creating and reading files/folders, summarizing documents, fetching news, launching localhost projects, opening sites, running web searches, and scheduling calendar events. Engineered a persistent memory layer for context-aware recall and an intent-to-action tool-calling workflow that maps requests to safe system operations.",
       tech: ["Python", "LLM Agents", "Tool-Calling", "Memory Layer"],
       year: "2026",
-      liveLink: "https://github.com/vijaydurgasi",
+      liveLink: "https://www.linkedin.com/feed/update/urn:li:activity:7478312662125260800/",
     },
     {
       id: "resume-rag",
-      title: "Resume RAG — AI Resume Q&A 🧠",
+      title: "Resume RAG 🧠",
       description:
         "RAG application that lets recruiters ask natural-language questions about my resume and receive instant, source-grounded answers. Built a retrieval pipeline over resume content with LLM responses via OpenRouter to prevent off-context and hallucinated replies, served through a responsive React chat interface.",
       tech: ["React", "OpenRouter API", "Retrieval-Augmented Generation"],

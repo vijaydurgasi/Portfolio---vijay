@@ -28,14 +28,21 @@ const AIAssistant = () => {
         }
     }, [isOpen]);
 
+    const closeChat = useCallback(() => {
+        setIsOpen(false);
+        setChatMessages([]);
+        setUsedQuestions([]);
+        setStreamingText("");
+        setIsStreaming(false);
+        setRagStatus(null);
+    }, []);
+
     const handleToggle = () => {
         if (isOpen) {
-            setIsOpen(false);
-            setChatMessages([]);
-            setUsedQuestions([]);
-            setStreamingText("");
-            setIsStreaming(false);
-            setRagStatus(null);
+            closeChat();
+            if (window.history.state && window.history.state.chatOpen) {
+                window.history.back();
+            }
         } else {
             setIsOpen(true);
             setChatMessages([
@@ -45,8 +52,39 @@ const AIAssistant = () => {
                         "Hi 👋 I'm Vijay's AI assistant powered by RAG. Ask me anything about his work, skills, or projects!"
                 }
             ]);
+            window.history.pushState({ chatOpen: true }, "");
         }
     };
+
+    useEffect(() => {
+        const handlePopState = (event) => {
+            if (isOpen && (!event.state || !event.state.chatOpen)) {
+                closeChat();
+            }
+        };
+
+        const handleOpenRag = () => {
+            if (!isOpen) {
+                setIsOpen(true);
+                setChatMessages([
+                    {
+                        role: "assistant",
+                        content:
+                            "Hi 👋 I'm Vijay's AI assistant powered by RAG. Ask me anything about his work, skills, or projects!"
+                    }
+                ]);
+                window.history.pushState({ chatOpen: true }, "");
+            }
+        };
+
+        window.addEventListener('popstate', handlePopState);
+        window.addEventListener('open-rag', handleOpenRag);
+        
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+            window.removeEventListener('open-rag', handleOpenRag);
+        };
+    }, [isOpen, closeChat]);
 
     // Status message mapping
     const statusMessages = {
@@ -154,8 +192,11 @@ const AIAssistant = () => {
             {isOpen && (
                 <div className="fixed inset-3 sm:inset-auto sm:bottom-24 sm:right-6 sm:w-[350px] sm:h-[500px] rounded-2xl shadow-2xl flex flex-col overflow-hidden surface z-50">
 
-                    <div className="p-4 border-b hairline">
-                        <h2 className="text-sm font-semibold flex items-center gap-2">
+                    <div className="p-4 border-b hairline flex items-center">
+                        <button onClick={handleToggle} className="mr-3 text-mut hover:text-text transition-colors" aria-label="Close chat">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        </button>
+                        <h2 className="text-sm font-semibold flex items-center gap-2 flex-1">
                             <span className="w-2 h-2 rounded-full accent-dot inline-block" />
                             Vijay's AI Assistant
                             <span className="ml-auto text-[10px] text-dim font-normal px-2 py-0.5 rounded-full surface-2">RAG</span>

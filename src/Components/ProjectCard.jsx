@@ -1,8 +1,15 @@
 const ProjectCard = ({ projectData }) => {
-  const { title, description, tech = [], liveLink, status, year } = projectData;
+  const { id, title, description, tech = [], liveLink, status, year } = projectData;
+
+  const handleClick = (e) => {
+    if (id === 'resume-rag') {
+      e.preventDefault();
+      window.dispatchEvent(new CustomEvent('open-rag'));
+    }
+  };
 
   return (
-    <a href={liveLink} target="_blank" rel="noopener noreferrer" className="block">
+    <a href={liveLink} onClick={handleClick} target="_blank" rel="noopener noreferrer" className="block">
       <div className="h-full p-6 rounded-2xl surface card-hover cursor-pointer">
         <div className="flex items-start justify-between gap-3 mb-2">
           <h4 className="text-xl font-semibold tracking-tight">{title}</h4>
