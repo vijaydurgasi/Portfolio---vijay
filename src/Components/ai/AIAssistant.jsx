@@ -16,6 +16,7 @@ const AIAssistant = () => {
     const [ragStatus, setRagStatus] = useState(null); // 'loading-model' | 'retrieving' | 'generating' | 'done'
     const [streamingText, setStreamingText] = useState("");
     const [isStreaming, setIsStreaming] = useState(false);
+    const [viewportStyle, setViewportStyle] = useState({});
 
     const messagesEndRef = useRef(null);
     const modelPreloaded = useRef(false);
@@ -85,6 +86,46 @@ const AIAssistant = () => {
             window.removeEventListener('open-rag', handleOpenRag);
         };
     }, [isOpen, closeChat]);
+
+    // Handle Mobile Virtual Keyboard Panning & Resizing
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+
+        const updateViewport = () => {
+            if (window.innerWidth < 640) { // Mobile breakpoint
+                if (window.visualViewport) {
+                    setViewportStyle({
+                        height: `${window.visualViewport.height}px`,
+                        top: `${window.visualViewport.offsetTop}px`,
+                        left: `${window.visualViewport.offsetLeft}px`,
+                        width: '100%',
+                        position: 'fixed'
+                    });
+                } else {
+                    setViewportStyle({ height: '100dvh', top: 0, left: 0, width: '100%', position: 'fixed' });
+                }
+            } else {
+                setViewportStyle({}); // Desktop uses Tailwind classes
+            }
+        };
+
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener("resize", updateViewport);
+            window.visualViewport.addEventListener("scroll", updateViewport);
+        }
+        window.addEventListener("resize", updateViewport);
+        
+        // Initial setup
+        updateViewport();
+
+        return () => {
+            if (window.visualViewport) {
+                window.visualViewport.removeEventListener("resize", updateViewport);
+                window.visualViewport.removeEventListener("scroll", updateViewport);
+            }
+            window.removeEventListener("resize", updateViewport);
+        };
+    }, [isOpen]);
 
     // Status message mapping
     const statusMessages = {
@@ -190,7 +231,10 @@ const AIAssistant = () => {
             </button>
 
             {isOpen && (
-                <div className="fixed inset-0 w-full h-[100dvh] z-50 flex flex-col surface rounded-none border-none sm:inset-auto sm:bottom-5 sm:right-5 sm:w-[350px] sm:h-[500px] sm:max-h-[80vh] sm:rounded-2xl sm:border sm:border-zinc-800 sm:shadow-2xl overflow-hidden">
+                <div 
+                    className="fixed inset-0 w-full h-[100dvh] z-50 flex flex-col surface rounded-none border-none sm:inset-auto sm:bottom-5 sm:right-5 sm:w-[350px] sm:h-[500px] sm:max-h-[80vh] sm:rounded-2xl sm:border sm:border-zinc-800 sm:shadow-2xl overflow-hidden"
+                    style={viewportStyle}
+                >
 
                     <div className="p-3 border-b hairline flex items-center shrink-0">
                         <button onClick={handleToggle} className="mr-3 text-mut hover:text-text transition-colors" aria-label="Close chat">
