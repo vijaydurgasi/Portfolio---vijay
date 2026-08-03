@@ -66,201 +66,19 @@ function vectorSearch(queryEmbedding, chunks, topK = 6) {
 
 
 // ──────────────────────────────────────────────
-// 3. BM25 SEARCH — Keyword Relevance
+// 3. STREAMING GENERATION — OpenRouter + Gemma 3
 // ──────────────────────────────────────────────
 
-function tokenize(text) {
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s]/g, ' ')
-    .split(/\s+/)
-    .filter(t => t.length > 1);
-}
+const SYSTEM_PROMPT = `You are Vijay Durgasi's highly intelligent AI portfolio assistant. Your goal is to accurately understand the user's intent and answer based ONLY on the provided context.
 
-// Stopwords to ignore in BM25
-const STOPWORDS = new Set([
-  'the', 'a', 'an', 'is', 'are', 'was', 'were', 'be', 'been', 'being',
-  'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could',
-  'should', 'may', 'might', 'can', 'shall', 'to', 'of', 'in', 'for',
-  'on', 'with', 'at', 'by', 'from', 'as', 'into', 'through', 'during',
-  'before', 'after', 'above', 'below', 'between', 'out', 'off', 'over',
-  'under', 'again', 'further', 'then', 'once', 'here', 'there', 'when',
-  'where', 'why', 'how', 'all', 'each', 'every', 'both', 'few', 'more',
-  'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own',
-  'same', 'so', 'than', 'too', 'very', 'just', 'if', 'or', 'and', 'but',
-  'because', 'until', 'while', 'about', 'what', 'which', 'who', 'whom',
-  'this', 'that', 'these', 'those', 'it', 'its', 'he', 'him', 'his',
-  'she', 'her', 'we', 'they', 'them', 'my', 'your', 'our', 'me', 'i',
-  'you', 'us', 'up'
-]);
-
-function tokenizeForBM25(text) {
-  return tokenize(text).filter(t => !STOPWORDS.has(t));
-}
-
-function bm25Search(query, chunks, topK = 6) {
-  const queryTerms = tokenizeForBM25(query);
-  if (queryTerms.length === 0) return [];
-
-  // BM25 parameters
-  const k1 = 1.5;
-  const b = 0.75;
-  const N = chunks.length;
-
-  // Compute average document length
-  const docLengths = chunks.map(c => tokenize(c.content).length);
-  const avgDL = docLengths.reduce((a, b) => a + b, 0) / N;
-
-  // Document frequency for each query term
-  const df = {};
-  queryTerms.forEach(term => {
-    df[term] = chunks.filter(c => {
-      const tokens = tokenize(c.content + ' ' + c.keywords.join(' '));
-      return tokens.includes(term);
-    }).length;
-  });
-
-  return chunks.map((chunk, idx) => {
-    const docTokens = tokenize(chunk.content + ' ' + chunk.keywords.join(' '));
-    const dl = docTokens.length;
-
-    let score = 0;
-    queryTerms.forEach(term => {
-      const tf = docTokens.filter(t => t === term).length;
-      const idf = Math.log((N - df[term] + 0.5) / (df[term] + 0.5) + 1);
-      const tfNorm = (tf * (k1 + 1)) / (tf + k1 * (1 - b + b * (dl / avgDL)));
-      score += idf * tfNorm;
-    });
-
-    return { ...chunk, bm25Score: score };
-  })
-    .sort((a, b) => b.bm25Score - a.bm25Score)
-    .slice(0, topK);
-}
-
-
-// ──────────────────────────────────────────────
-// 4. RERANKER — Multi-Signal Weighted Scorer
-// ──────────────────────────────────────────────
-
-// Section relevance mapping: query keywords → section boost
-const SECTION_MAP = {
-  'project': 'Projects', 'projects': 'Projects', 'built': 'Projects', 'portfolio': 'Projects',
-  'skill': 'Skills', 'skills': 'Skills', 'tech': 'Skills', 'stack': 'Skills', 'technologies': 'Skills', 'know': 'Skills', 'language': 'Skills',
-  'contact': 'Contact', 'email': 'Contact', 'hire': 'Contact', 'reach': 'Contact', 'linkedin': 'Contact', 'github': 'Contact',
-  'service': 'Services', 'services': 'Services', 'offer': 'Services', 'freelance': 'Services',
-  'experience': 'Experience', 'production': 'Experience', 'capable': 'Experience', 'professional': 'Experience', 'work': 'Experience',
-  'about': 'Overview', 'who': 'Overview', 'introduction': 'Overview',
-  'frontend': 'Skills', 'backend': 'Skills', 'react': 'Skills', 'node': 'Skills', 'python': 'Skills',
-  'ai': 'Skills', 'llm': 'Skills', 'rag': 'Skills', 'agent': 'Skills',
-};
-
-function computeSectionRelevance(query, chunkSection) {
-  const queryTerms = tokenize(query);
-  let matchCount = 0;
-  queryTerms.forEach(term => {
-    if (SECTION_MAP[term] === chunkSection) matchCount++;
-  });
-  return Math.min(matchCount / Math.max(queryTerms.length, 1), 1);
-}
-
-function computeTermCoverage(queryTerms, chunkContent) {
-  const chunkTokens = new Set(tokenize(chunkContent));
-  const matches = queryTerms.filter(t => chunkTokens.has(t));
-  return matches.length / Math.max(queryTerms.length, 1);
-}
-
-function normalize(scores) {
-  const max = Math.max(...scores);
-  const min = Math.min(...scores);
-  const range = max - min || 1;
-  return scores.map(s => (s - min) / range);
-}
-
-function rerank(query, candidates) {
-  if (candidates.length === 0) return [];
-
-  const queryTerms = tokenizeForBM25(query);
-
-  // Normalize vector and BM25 scores across candidates
-  const vectorScores = normalize(candidates.map(c => c.vectorScore || 0));
-  const bm25Scores = normalize(candidates.map(c => c.bm25Score || 0));
-
-  return candidates.map((candidate, idx) => {
-    const termCoverage = computeTermCoverage(queryTerms, candidate.content);
-    const sectionRelevance = computeSectionRelevance(query, candidate.section);
-    const phraseMatch = query.length > 3 &&
-      candidate.content.toLowerCase().includes(query.toLowerCase()) ? 1 : 0;
-
-    // Keyword match against chunk's explicit keywords array
-    const keywordOverlap = candidate.keywords
-      ? queryTerms.filter(t => candidate.keywords.some(k => k.toLowerCase().includes(t))).length /
-        Math.max(queryTerms.length, 1)
-      : 0;
-
-    // Weighted combination — semantic gets highest weight
-    const finalScore =
-      0.30 * vectorScores[idx] +     // Semantic relevance
-      0.25 * bm25Scores[idx] +       // Keyword relevance
-      0.20 * termCoverage +           // Query term coverage in doc
-      0.10 * keywordOverlap +         // Explicit keyword match
-      0.10 * sectionRelevance +       // Section-level relevance
-      0.05 * phraseMatch;             // Exact phrase bonus
-
-    return { ...candidate, finalScore };
-  })
-    .sort((a, b) => b.finalScore - a.finalScore);
-}
-
-
-// ──────────────────────────────────────────────
-// 5. HYBRID SEARCH — Vector + BM25 → Reranker
-// ──────────────────────────────────────────────
-
-function hybridSearch(query, queryEmbedding, topK = 3) {
-  // Stage 1: Get candidates from both retrieval methods
-  const vectorResults = vectorSearch(queryEmbedding, embeddingsData, 6);
-  const bm25Results = bm25Search(query, embeddingsData, 6);
-
-  // Stage 2: Merge unique candidates
-  const seen = new Set();
-  const allCandidates = [];
-
-  [...vectorResults, ...bm25Results].forEach(result => {
-    if (!seen.has(result.id)) {
-      seen.add(result.id);
-      // Find the corresponding scores from each method
-      const vr = vectorResults.find(v => v.id === result.id);
-      const br = bm25Results.find(b => b.id === result.id);
-      allCandidates.push({
-        ...result,
-        vectorScore: vr?.vectorScore || 0,
-        bm25Score: br?.bm25Score || 0,
-      });
-    }
-  });
-
-  // Stage 3: Rerank with multi-signal scorer
-  const reranked = rerank(query, allCandidates);
-
-  return reranked.slice(0, topK);
-}
-
-
-// ──────────────────────────────────────────────
-// 6. STREAMING GENERATION — OpenRouter + Gemma 3
-// ──────────────────────────────────────────────
-
-const SYSTEM_PROMPT = `You are Vijay Durgasi's AI portfolio assistant. Answer questions about Vijay based ONLY on the provided context.
-
-Rules:
-- Answer in 2-4 sentences. Be concise and direct.
-- Only use information from the provided context.
-- If the context doesn't contain relevant information, say "I don't have specific information about that. You can ask me about Vijay's projects, skills, experience, or contact details."
-- Refer to Vijay in third person.
-- Use a professional but friendly tone.
-- Use markdown formatting (bold, lists) when it improves readability.
-- Do NOT make up or hallucinate information not in the context.`;
+Critical Rules:
+1. Intent Parsing - Projects:
+   - If the user asks a GENERAL question like "What projects did Vijay build?" or "List his projects": ONLY output a clean bulleted list of the project names. Do not explain them in depth.
+   - If the user asks about a SPECIFIC project (e.g., "Explain the PrintFlow project" or "Tell me about X"): Provide a detailed explanation, including features and technologies used.
+2. Conciseness: Keep general answers between 5 - 8 sentences unless listing items. Be direct and avoid fluff.
+3. Strict Context: If the context doesn't contain the answer, politely say "I don't have specific information about that. You can ask me about Vijay's projects, skills, experience, or contact details."
+4. Tone: Refer to Vijay in the third person ("He", "Vijay"). Be professional, friendly, and use markdown (bolding, lists) to make responses easy to read.
+5. No Hallucinations: NEVER make up information, links, or projects that are not in the context.`;
 
 export async function* streamGeneration(query, contextChunks) {
   const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
@@ -291,7 +109,7 @@ export async function* streamGeneration(query, contextChunks) {
         },
       ],
       stream: true,
-      max_tokens: 300,
+      max_tokens: 1500,
       temperature: 0.3,
     }),
   });
@@ -339,7 +157,7 @@ export async function* streamGeneration(query, contextChunks) {
 
 /**
  * Execute the full RAG pipeline:
- *   Embed query → Hybrid search → Rerank → Stream LLM response
+ *   Embed query → Semantic search → Stream LLM response
  *
  * @param {string} query - User's question
  * @param {function} onChunk - Called with each text chunk as it streams
@@ -352,9 +170,10 @@ export async function queryRAG(query, onChunk, onStatus) {
     onStatus?.('loading-model');
     const queryEmbedding = await embedQuery(query);
 
-    // Step 2: Hybrid retrieval + reranking
+    // Step 2: Semantic retrieval
     onStatus?.('retrieving');
-    const topChunks = hybridSearch(query, queryEmbedding, 3);
+    // Using topK = 15 to pass a massive context window so the LLM sees ALL projects
+    const topChunks = vectorSearch(queryEmbedding, embeddingsData, 15);
 
     if (topChunks.length === 0) {
       onChunk("I couldn't find relevant information. Try asking about Vijay's projects, skills, or experience.");
