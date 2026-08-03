@@ -203,64 +203,65 @@ const AIAssistant = () => {
                         </h2>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto p-4 text-sm text-mut">
-
-                        {chatMessages.map((msg, index) => (
-                            <div
-                                key={index}
-                                className={`mb-3 max-w-[80%] ${msg.role === "user"
-                                    ? "ml-auto text-right"
-                                    : "mr-auto text-left"
-                                    }`}
-                            >
-                                <div className={`inline-block px-4 py-2 rounded-2xl surface prose prose-sm dark:prose-invert max-w-none ${
-                                    msg.role === "user" ? "bg-accent text-btn" : ""
-                                }`}>
-                                    <ReactMarkdown>{msg.content}</ReactMarkdown>
+                    <div className="flex-1 overflow-y-auto p-4 text-sm text-mut flex flex-col">
+                        <div className="mt-auto flex flex-col w-full">
+                            {chatMessages.map((msg, index) => (
+                                <div
+                                    key={index}
+                                    className={`mb-3 max-w-[80%] ${msg.role === "user"
+                                        ? "ml-auto text-right"
+                                        : "mr-auto text-left"
+                                        }`}
+                                >
+                                    <div className={`inline-block px-4 py-2 rounded-2xl surface prose prose-sm dark:prose-invert max-w-none ${
+                                        msg.role === "user" ? "bg-accent text-btn" : ""
+                                    }`}>
+                                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
 
-                        {/* Streaming response — word by word */}
-                        {isStreaming && streamingText && (
-                            <div className="mb-3 max-w-[80%] mr-auto text-left">
-                                <div className="inline-block px-4 py-2 rounded-2xl surface prose prose-sm dark:prose-invert max-w-none">
-                                    <ReactMarkdown>{streamingText}</ReactMarkdown>
-                                    <span className="streaming-cursor" />
+                            {/* Streaming response — word by word */}
+                            {isStreaming && streamingText && (
+                                <div className="mb-3 max-w-[80%] mr-auto text-left">
+                                    <div className="inline-block px-4 py-2 rounded-2xl surface prose prose-sm dark:prose-invert max-w-none">
+                                        <ReactMarkdown>{streamingText}</ReactMarkdown>
+                                        <span className="streaming-cursor" />
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
 
-                        {/* Status indicator — minimal, no box */}
-                        {isLoading && !streamingText && (
-                            <div className="mr-auto mb-3 flex items-center gap-2 px-1 py-2">
-                                <span className="rag-dots">
-                                    <span /><span /><span />
-                                </span>
-                                <span className="text-xs text-dim">
-                                    {statusMessages[ragStatus] || 'Thinking...'}
-                                </span>
-                            </div>
-                        )}
+                            {/* Status indicator — minimal, no box */}
+                            {isLoading && !streamingText && (
+                                <div className="mr-auto mb-3 flex items-center gap-2 px-1 py-2">
+                                    <span className="rag-dots">
+                                        <span /><span /><span />
+                                    </span>
+                                    <span className="text-xs text-dim">
+                                        {statusMessages[ragStatus] || 'Thinking...'}
+                                    </span>
+                                </div>
+                            )}
 
-                        {/* Suggested questions */}
-                        {showSuggestions && (
-                            <div className="mt-3 flex flex-wrap gap-2">
-                                {suggestedQuestions
-                                    .filter(q => !usedQuestions.includes(q))
-                                    .map((q, index) => (
-                                        <button
-                                            key={index}
-                                            onClick={() => handleSend(q)}
-                                            className="text-xs chip px-3 py-1 rounded-full"
-                                        >
-                                            {q}
-                                        </button>
-                                    ))}
-                            </div>
-                        )}
+                            {/* Suggested questions */}
+                            {showSuggestions && (
+                                <div className="mt-3 flex flex-wrap gap-2">
+                                    {suggestedQuestions
+                                        .filter(q => !usedQuestions.includes(q))
+                                        .map((q, index) => (
+                                            <button
+                                                key={index}
+                                                onClick={() => handleSend(q)}
+                                                className="text-xs chip px-3 py-1 rounded-full"
+                                            >
+                                                {q}
+                                            </button>
+                                        ))}
+                                </div>
+                            )}
 
-                        <div ref={messagesEndRef} />
+                            <div ref={messagesEndRef} />
+                        </div>
                     </div>
 
                     <div className="p-3 border-t hairline">
