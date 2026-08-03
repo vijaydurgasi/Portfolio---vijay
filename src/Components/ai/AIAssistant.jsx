@@ -190,7 +190,7 @@ const AIAssistant = () => {
             </button>
 
             {isOpen && (
-                <div className="fixed inset-3 sm:inset-auto sm:bottom-24 sm:right-6 sm:w-[350px] h-[500px] max-h-[80vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden surface z-50">
+                <div className="fixed inset-0 w-full h-[100dvh] z-50 flex flex-col surface rounded-none border-none sm:inset-auto sm:bottom-5 sm:right-5 sm:w-[350px] sm:h-[500px] sm:max-h-[80vh] sm:rounded-2xl sm:border sm:border-zinc-800 sm:shadow-2xl overflow-hidden">
 
                     <div className="p-3 border-b hairline flex items-center shrink-0">
                         <button onClick={handleToggle} className="mr-3 text-mut hover:text-text transition-colors" aria-label="Close chat">
@@ -203,7 +203,7 @@ const AIAssistant = () => {
                         </h2>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto min-h-0 p-3 text-sm text-mut space-y-3">
+                    <div className="flex-1 overflow-y-auto min-h-0 overscroll-contain p-3 text-sm text-mut space-y-3">
                         {chatMessages.map((msg, index) => (
                             <div
                                 key={index}
