@@ -6,8 +6,15 @@ const resumeChunks = [
   {
     id: "personal-overview",
     section: "Overview",
-    keywords: ["vijay", "durgasi", "developer", "engineer", "full-stack", "AI", "LLM", "introduction", "about", "who"],
-    content: `Vijay Durgasi is a Full-Stack Developer and AI/LLM Engineer who turns complex requirements into intelligent, user-centric products. He builds production-grade, end-to-end applications with React, Node.js, and Python — shipping LLM-powered systems like RAG pipelines, autonomous AI agents, and a live, payment-integrated client platform that pairs clean UX with real automation. He is open to full-stack and AI/LLM engineering roles, freelance work, and collaborations.`
+    keywords: ["vijay", "durgasi", "developer", "engineer", "full-stack", "full stack", "AI", "LLM", "automation", "AI automation", "introduction", "about", "who", "storyhug", "stroyhug", "storyhug.ai", "current", "currently", "working", "job"],
+    content: `Vijay Durgasi is a Full Stack Developer & AI Automation Engineer currently working at StoryHug.ai (storyhug.ai). He turns complex requirements into intelligent, user-centric automated products. He builds production-grade, end-to-end applications with React, Node.js, and Python — shipping LLM-powered systems like RAG pipelines, autonomous AI agents, automated workflows with n8n, and a live, payment-integrated client platform that pairs clean UX with real automation. He is open to full-stack and AI automation engineering roles, freelance work, and collaborations.`
+  },
+  {
+    id: "experience-storyhug",
+    section: "Experience",
+    keywords: ["storyhug", "stroyhug", "storyhug.ai", "stroyhug.ai", "current", "role", "work", "job", "experience", "company", "currently working", "employment", "full stack", "full-stack", "AI automation", "automation", "n8n"],
+    content: `Current Company & Experience:
+Vijay is currently working at StoryHug.ai (storyhug.ai) as a Full Stack Developer & AI Automation Engineer. At StoryHug.ai, he builds intelligent, production-ready AI features, creates automated workflows and pipelines using tools like n8n, develops multimodal systems, and ships scalable full-stack applications.`
   },
   {
     id: "frontend-skills",
@@ -24,14 +31,14 @@ const resumeChunks = [
   {
     id: "ai-llm-skills",
     section: "Skills",
-    keywords: ["AI", "LLM", "RAG", "agents", "NLP", "prompt", "engineering", "vector", "search", "multimodal", "openrouter", "machine learning", "artificial intelligence"],
-    content: `AI & LLM Skills: RAG (Retrieval-Augmented Generation), Multimodal RAG, AI Agents, NLP (Natural Language Processing), Prompt Engineering, OpenRouter API, Vector Search. Vijay designs RAG pipelines, autonomous AI agents, and LLM-powered features that add real automation to products. He has built intelligent systems with tool-calling workflows, memory layers, and context-aware recall.`
+    keywords: ["AI", "LLM", "RAG", "agents", "automation", "AI automation", "n8n", "NLP", "prompt", "engineering", "vector", "search", "multimodal", "gemini", "google gemini", "openrouter", "machine learning", "artificial intelligence"],
+    content: `AI & Automation Skills: RAG (Retrieval-Augmented Generation), Multimodal RAG, AI Agents, AI Automation with n8n, NLP (Natural Language Processing), Prompt Engineering, Google Gemini API, OpenRouter API, Vector Search. Vijay designs RAG pipelines, autonomous AI agents, automated workflows with n8n, and LLM-powered features that add real automation to products. He has built intelligent systems with tool-calling workflows, memory layers, and context-aware recall.`
   },
   {
     id: "tools-devops",
     section: "Skills",
-    keywords: ["tools", "AWS", "S3", "git", "github", "vercel", "netlify", "postman", "vscode", "devops", "deployment", "cloud"],
-    content: `Tools & DevOps: AWS S3, Git & GitHub, VS Code, Postman, Vercel, Netlify. Vijay uses cloud services like AWS S3 for media storage and streaming, deploys applications through Vercel and Netlify, and manages version control with Git and GitHub.`
+    keywords: ["tools", "n8n", "automation", "AWS", "S3", "git", "github", "vercel", "netlify", "postman", "vscode", "devops", "deployment", "cloud"],
+    content: `Tools, Automation & DevOps: n8n, AWS S3, Git & GitHub, VS Code, Postman, Vercel, Netlify. Vijay uses n8n for building automated workflows and AI-driven automation pipelines, cloud services like AWS S3 for media storage and streaming, deploys applications through Vercel and Netlify, and manages version control with Git and GitHub.`
   },
   {
     id: "project-byoc",
@@ -50,9 +57,9 @@ An agentic desktop AI that controls the local machine through natural language �
   {
     id: "project-resume-rag",
     section: "Projects",
-    keywords: ["resume", "RAG", "Q&A", "recruiter", "retrieval", "openrouter", "chat", "portfolio"],
+    keywords: ["resume", "RAG", "Q&A", "recruiter", "retrieval", "gemini", "google gemini", "openrouter", "chat", "portfolio"],
     content: `Project: Resume RAG — AI Resume Q&A 🧠 (2026)
-A RAG application that lets recruiters ask natural-language questions about Vijay's resume and receive instant, source-grounded answers. Built a retrieval pipeline over resume content with LLM responses via OpenRouter to prevent off-context and hallucinated replies, served through a responsive React chat interface. Tech stack: React, OpenRouter API, Retrieval-Augmented Generation.`
+A RAG application that lets recruiters ask natural-language questions about Vijay's resume and receive instant, source-grounded answers. Built a retrieval pipeline over resume content with LLM responses via Google Gemini API to prevent off-context and hallucinated replies, served through a responsive React chat interface. Tech stack: React, Google Gemini API, Retrieval-Augmented Generation.`
   },
   {
     id: "project-ai-learning-hub",
@@ -105,9 +112,9 @@ Vijay is open to full-stack and AI/LLM engineering roles, freelance work, and co
   {
     id: "production-capability",
     section: "Experience",
-    keywords: ["production", "capable", "experience", "professional", "real-world", "live", "client", "revenue"],
+    keywords: ["production", "capable", "experience", "professional", "real-world", "live", "client", "revenue", "storyhug", "stroyhug", "currently working", "automation", "n8n", "full stack"],
     content: `Production Capability & Experience:
-Vijay has shipped a production platform for a live paying client — Be Your Own Coach — with Razorpay pay-to-unlock access and premium video streaming from AWS S3 after verified payment. He has implemented: a live payment-integrated production application, RAG pipelines and autonomous AI agents, authentication and access control systems, advanced state management patterns, and fully responsive scalable architecture. His projects demonstrate end-to-end ownership from design to deployment to maintenance.`
+Vijay is currently working at StoryHug.ai as a Full Stack Developer & AI Automation Engineer, and has previously shipped a production platform for a live paying client — Be Your Own Coach — with Razorpay pay-to-unlock access and premium video streaming from AWS S3 after verified payment. He has implemented: scalable AI features and automated workflows with n8n at StoryHug.ai, a live payment-integrated production application, RAG pipelines and autonomous AI agents, authentication and access control systems, advanced state management patterns, and fully responsive scalable architecture. His projects demonstrate end-to-end ownership from design to deployment to maintenance.`
   }
 ];
 

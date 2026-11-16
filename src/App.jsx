@@ -52,9 +52,10 @@ function App() {
   // Hero
   const heroData = {
     name: "Vijay",
-    role: "Full-Stack Developer | AI & LLM Engineer",
+    role: "Full-Stack Developer & AI Automation Engineer",
+    status: "Currently working at StoryHug.ai",
     intro:
-      "I build production-grade, end-to-end applications with React, Node.js, and Python — shipping LLM-powered systems like RAG pipelines, autonomous AI agents, and a live, payment-integrated client platform that pair clean UX with real automation.",
+      "I build production-grade, end-to-end applications with React, Node.js, and Python — shipping LLM-powered systems, AI automation workflows with n8n, and autonomous AI agents that pair clean UX with real automation.",
     image: tomImg,
   };
 
@@ -88,12 +89,13 @@ function App() {
     "🤖 AI Agents",
     "💬 NLP",
     "✍️ Prompt Engineering",
-    "🤝 OpenRouter API",
+    "✨ Google Gemini API",
     "🔎 Vector Search",
   ];
 
   //tools
   const toolsData = [
+    "⚡ n8n",
     "☁️ AWS S3",
     "🔧 Git & GitHub",
     "🛠️ VS Code",
@@ -126,8 +128,8 @@ function App() {
       id: "resume-rag",
       title: "Resume RAG 🧠",
       description:
-        "RAG application that lets recruiters ask natural-language questions about my resume and receive instant, source-grounded answers. Built a retrieval pipeline over resume content with LLM responses via OpenRouter to prevent off-context and hallucinated replies, served through a responsive React chat interface.",
-      tech: ["React", "OpenRouter API", "Retrieval-Augmented Generation"],
+        "RAG application that lets recruiters ask natural-language questions about my resume and receive instant, source-grounded answers. Built a retrieval pipeline over resume content with LLM responses via Google Gemini to prevent off-context and hallucinated replies, served through a responsive React chat interface.",
+      tech: ["React", "Google Gemini API", "Retrieval-Augmented Generation"],
       year: "2026",
       liveLink: "https://github.com/vijaydurgasi",
     },
@@ -180,10 +182,11 @@ function App() {
   const aboutData = {
     heading: "About Me",
     intro:
-      "I'm a Full-Stack Developer and AI/LLM Engineer who turns complex requirements into intelligent, user-centric products.",
+      "I'm a Full-Stack Developer & AI Automation Engineer currently working at StoryHug.ai, turning complex requirements into intelligent, user-centric automated products.",
     points: [
+      "Currently working at StoryHug.ai as a Full Stack Developer & AI Automation Engineer.",
       "I build production-grade, end-to-end applications with React, Node.js, and Python.",
-      "I ship LLM-powered systems — RAG pipelines, autonomous AI agents, and multimodal retrieval.",
+      "I ship LLM-powered systems and automated pipelines — RAG pipelines, n8n workflows, and autonomous AI agents.",
       "I delivered a live, payment-integrated coaching platform serving real paying users in production.",
       "I have built real-world projects like a paid coaching platform, an AI desktop agent, YouTube, Swiggy, and Netflix GPT clones.",
       "I pair clean UI/UX with real automation, and I take ownership of tasks until the solution is complete.",

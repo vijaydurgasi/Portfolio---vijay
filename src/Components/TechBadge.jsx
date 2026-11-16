@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
 const words = [
+    "Currently @ StoryHug.ai",
     "Full-Stack Developer",
-    "AI & LLM Engineer",
-    "RAG • AI Agents • Multimodal RAG",
+    "AI Automation Engineer",
+    "RAG • n8n • AI Agents",
     "React • Node.js • Python"
 ];
 

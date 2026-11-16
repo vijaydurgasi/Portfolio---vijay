@@ -8,7 +8,7 @@ describe("ThemeToggle component", () => {
     test("renders theme toggle button", () => {
         render(<ThemeToggle isDark={false} setIsDark={() => { }} />);
 
-        const toggleButton = screen.getByText(/switch to dark/i);
+        const toggleButton = screen.getByRole("button", { name: /switch to dark/i });
         expect(toggleButton).toBeInTheDocument();
     });
 });
@@ -17,7 +17,7 @@ test("calls setIsDark when toggle button is clicked", async () => {
 
     render(<ThemeToggle isDark={false} setIsDark={setIsDarkMock} />);
 
-    const toggleButton = screen.getByText(/switch to dark/i);
+    const toggleButton = screen.getByRole("button", { name: /switch to dark/i });
 
     await userEvent.click(toggleButton);
 

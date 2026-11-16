@@ -12,7 +12,7 @@ A modern, responsive portfolio website with an **Advanced RAG-powered AI Assista
 |---|---|
 | **Frontend** | React 19, Vite 7, Tailwind CSS |
 | **AI / RAG** | Hybrid Search, Reranker, Streaming LLM |
-| **LLM Provider** | OpenRouter API → Google Gemma 3 27B |
+| **LLM Provider** | Google Gemini API (`gemini-2.0-flash` / `gemini-1.5-flash`) |
 | **Embedding** | all-MiniLM-L6-v2 via @huggingface/transformers |
 | **Deployment** | Vercel |
 
@@ -92,8 +92,8 @@ After scoring, candidates are sorted by final score and the **top 3 chunks** are
 
 | Parameter | Value |
 |---|---|
-| **Provider** | OpenRouter API |
-| **Model** | `google/gemma-3-27b-it` (Gemma 3 27B Instruct) |
+| **Provider** | Google Gemini API (fallback to OpenRouter) |
+| **Model** | `gemini-2.0-flash` (auto fallback to `gemini-1.5-flash`) |
 | **Streaming** | SSE (Server-Sent Events) → word-by-word rendering |
 | **Max Tokens** | 300 (output limit) |
 | **Temperature** | 0.3 (focused, low randomness) |

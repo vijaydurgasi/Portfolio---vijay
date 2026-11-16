@@ -1,6 +1,6 @@
 const Hero = ({ heroData, setHighlightProject, projectRef }) => {
 
-  const { name, role, intro, image } = heroData;
+  const { name, role, intro, image, status } = heroData;
 
   const handleProjectClick = () => {
     setHighlightProject(true);
@@ -21,8 +21,10 @@ const Hero = ({ heroData, setHighlightProject, projectRef }) => {
 
           <div className="flex-1 text-center md:text-left">
             <div className="flex items-center gap-2 justify-center md:justify-start mb-6">
-              <span className="w-2 h-2 rounded-full accent-dot inline-block" />
-              <span className="text-xs tracking-[0.15em] text-mut">AVAILABLE FOR WORK</span>
+              <span className="w-2 h-2 rounded-full accent-dot inline-block animate-pulse" />
+              <span className="text-xs tracking-[0.15em] text-mut uppercase">
+                {status || "Currently working at StoryHug.ai"}
+              </span>
             </div>
 
             <h1 className="text-4xl md:text-6xl font-semibold leading-tight tracking-tight">
