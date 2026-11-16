@@ -75,10 +75,32 @@ Critical Rules:
 1. Intent Parsing - Projects:
    - If the user asks a GENERAL question like "What projects did Vijay build?" or "List his projects": ONLY output a clean bulleted list of the project names. Do not explain them in depth.
    - If the user asks about a SPECIFIC project (e.g., "Explain the PrintFlow project" or "Tell me about X"): Provide a detailed explanation, including features and technologies used.
-2. Conciseness: Keep general answers between 5 - 8 sentences unless listing items. Be direct and avoid fluff.
+2. Conciseness: Keep every answer to no more than 4 short lines. Be direct and avoid fluff.
 3. Strict Context: If the context doesn't contain the answer, politely say "I don't have specific information about that. You can ask me about Vijay's projects, skills, experience, or contact details."
 4. Tone: Refer to Vijay in the third person ("He", "Vijay"). Be professional, friendly, and use markdown (bolding, lists) to make responses easy to read.
 5. No Hallucinations: NEVER make up information, links, or projects that are not in the context.`;
+
+const MAX_RESPONSE_LINES = 4;
+
+export async function* limitResponseLines(stream) {
+  let response = '';
+
+  for await (const chunk of stream) {
+    const candidate = response + chunk;
+    const lines = candidate.split('\n');
+
+    if (lines.length <= MAX_RESPONSE_LINES) {
+      response = candidate;
+      yield chunk;
+      continue;
+    }
+
+    const limitedResponse = lines.slice(0, MAX_RESPONSE_LINES).join('\n');
+    const remainingChunk = limitedResponse.slice(response.length);
+    if (remainingChunk) yield remainingChunk;
+    return;
+  }
+}
 
 async function* streamFromGemini(query, context, apiKey) {
   const models = ['gemini-2.5-flash', 'gemini-3.8-flash', 'gemini-2.5-pro'];
@@ -274,7 +296,7 @@ export async function* streamGeneration(query, contextChunks) {
     let hasYielded = false;
     let geminiError = null;
 
-    for await (const chunk of streamFromGemini(query, context, geminiKey)) {
+    for await (const chunk of limitResponseLines(streamFromGemini(query, context, geminiKey))) {
       if (
         chunk.startsWith('Gemini API Error') ||
         chunk.startsWith('Gemini Error') ||
@@ -290,13 +312,13 @@ export async function* streamGeneration(query, contextChunks) {
     if (!hasYielded && geminiError) {
       if (openRouterKey) {
         console.warn('Gemini stream failed, falling back to OpenRouter...', geminiError);
-        yield* streamFromOpenRouter(query, context, openRouterKey);
+        yield* limitResponseLines(streamFromOpenRouter(query, context, openRouterKey));
       } else {
         yield geminiError;
       }
     }
   } else if (openRouterKey) {
-    yield* streamFromOpenRouter(query, context, openRouterKey);
+    yield* limitResponseLines(streamFromOpenRouter(query, context, openRouterKey));
   }
 }
 
